@@ -2,7 +2,7 @@
   "components": {
     "stage3d": {
       "path": "frontend/stage3d",
-      "export": "default"
+      "export": "Stage3d"
     }
   }
 }
