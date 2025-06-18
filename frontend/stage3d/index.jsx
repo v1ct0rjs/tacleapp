@@ -1,55 +1,74 @@
 "use client"
 
+import { Suspense } from "react"
 import { Canvas } from "@react-three/fiber"
-import { OrbitControls } from "@react-three/drei"
-import { Suspense, useEffect } from "react"
+import { OrbitControls, useGLTF, Environment } from "@react-three/drei"
+import { Html } from "@react-three/drei" // Import moved to the top
 
-// Un componente de cubo muy simple
-function Box(props) {
-  return (
-    <mesh {...props}>
-      <boxGeometry args={[1, 1, 1]} /> {/* Un cubo de 1x1x1 */}
-      <meshStandardMaterial color="orange" /> {/* Un material naranja simple */}
-    </mesh>
-  )
+function ModelViewer() {
+  // Ruta correcta según la ubicación: assets/models/poly-duck.glb -> /models/poly-duck.glb
+  const gltfPath = "/models/poly-duck.glb"
+  console.log("Intentando cargar GLTF desde:", gltfPath)
+
+  let scene
+  let error = null
+
+  try {
+    const gltf = useGLTF(gltfPath)
+    scene = gltf.scene
+    console.log("GLTF cargado exitosamente:", scene)
+  } catch (e) {
+    error = e
+    console.error("Error al cargar GLTF:", error)
+  }
+
+  if (error) {
+    return (
+      <mesh>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color="red" emissive="red" />
+      </mesh>
+    ) // Cubo rojo si falla la carga
+  }
+
+  return scene ? <primitive object={scene} scale={1} /> : null // Ajusta la escala si es necesario
 }
 
 export function Stage3d(props) {
   const inheritedStyle = props.style || {}
-
-  useEffect(() => {
-    console.log("Stage3d React Component MOUNTED! (3D Cube Test)")
-    console.log("Props received by Stage3d (3D Cube Test):", props)
-    console.log("props.style received (3D Cube Test):", inheritedStyle)
-  }, [props, inheritedStyle])
-
-  // Este div DEBE tener dimensiones para que el Canvas funcione.
-  // Reflex debería pasar height="60vh" y width="100%" aquí.
   const wrapperStyle = {
-    height: inheritedStyle.height || "400px", // Fallback si no se provee height
-    width: inheritedStyle.width || "100%", // Fallback si no se provee width
-    border: "2px solid green", // Borde verde para ver claramente el área del div
-    backgroundColor: "#e0e0e0", // Fondo gris claro para el div
+    height: inheritedStyle.height || "70vh", // Aumentado un poco
+    width: inheritedStyle.width || "100%",
+    border: "2px solid green", // Borde para ver el contenedor
+    backgroundColor: "#f0f0f0", // Fondo claro para contraste
   }
 
-  console.log("Applying wrapperStyle (3D Cube Test):", wrapperStyle)
+  console.log("Renderizando Stage3d. Props:", props, "Estilo Wrapper:", wrapperStyle)
 
   return (
     <div style={wrapperStyle}>
-      <Canvas
-        frameloop="demand" // Renderiza bajo demanda
-        camera={{ position: [2, 2, 3], fov: 50 }} // Posición de cámara para ver el cubo en el origen
-      >
-        {/* Luces básicas */}
-        <ambientLight intensity={0.8} />
+      <Canvas camera={{ position: [0, 2, 5], fov: 50 }}>
+        <ambientLight intensity={0.7} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
-
-        <Suspense fallback={null}>
-          <Box position={[0, 0, 0]} /> {/* Coloca el cubo en el origen */}
+        <Environment preset="sunset" /> {/* Añade un entorno para mejor iluminación */}
+        <Suspense fallback={<LoadingFallback />}>
+          <ModelViewer />
         </Suspense>
-
-        <OrbitControls enableZoom={true} />
+        <OrbitControls />
       </Canvas>
     </div>
+  )
+}
+
+function LoadingFallback() {
+  console.log("Mostrando Fallback de Suspense (cargando modelo)...")
+  return (
+    <mesh position={[0, 0, 0]}>
+      <boxGeometry args={[0.5, 0.5, 0.5]} />
+      <meshStandardMaterial color="blue" wireframe />
+      <Html center>
+        <p style={{ color: "black" }}>Cargando modelo...</p>
+      </Html>
+    </mesh>
   )
 }
