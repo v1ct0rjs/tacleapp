@@ -1,0 +1,9 @@
+{
+  "components": {
+    "stage3d": {
+      "path": "frontend/stage3d",   // <– ruta que acabas de crear
+      "export": "default"
+    }
+  }
+}
+
