@@ -7,7 +7,7 @@ import { Html } from "@react-three/drei" // Import moved to the top
 
 function ModelViewer() {
   // Ruta correcta según la ubicación: assets/models/poly-duck.glb -> /models/poly-duck.glb
-  const gltfPath = "/models/poly-duck.glb"
+  const gltfPath = "/models/duck.glb"
   console.log("Intentando cargar GLTF desde:", gltfPath)
 
   let scene
