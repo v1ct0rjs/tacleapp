@@ -3,7 +3,7 @@
 # For wrapping react guide, visit https://reflex.dev/docs/wrapping-react/overview/
 
 import reflex as rx
-
+from reflex.components.component import NoSSRComponent
 # Some libraries you want to wrap may require dynamic imports.
 # This is because they they may not be compatible with Server-Side Rendering (SSR).
 # To handle this in Reflex, all you need to do is subclass `NoSSRComponent` instead.
@@ -13,18 +13,18 @@ import reflex as rx
 #     pass
 
 
-class Stage3d(rx.Component):
-    """Stage3d component."""
+class Stage3d(NoSSRComponent):
+    """Stage3d component wrapping the frontend implementation."""
 
     # The React library to wrap.
-    library = "Fill-Me"
+    library = "stage3d"
 
     # The React component tag.
-    tag = "Fill-Me"
+    tag = "Stage3d"
 
     # If the tag is the default export from the module, you must set is_default = True.
     # This is normally used when components don't have curly braces around them when importing.
-    # is_default = True
+    is_default = True
 
     # If you are wrapping another components with the same tag as a component in your project
     # you can use aliases to differentiate between them and avoid naming conflicts.

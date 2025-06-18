@@ -7,3 +7,4 @@ class Stage3d(rx.Component):
     is_default = True     # ⇠ porque exportas default
 
 
+stage3d = Stage3d.create
