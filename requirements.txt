@@ -1,2 +1,2 @@
-stage3d
-reflex==0.7.14
+reflex>=0.7.14
+psutil>=5.9.0

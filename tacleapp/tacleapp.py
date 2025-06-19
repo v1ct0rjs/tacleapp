@@ -1,19 +1,32 @@
 import reflex as rx
-from .components.stage3d import stage3d # Asegúrate de que esta importación esté descomentada
+from .state import State
+from .components import navigation, hero, about, music, events, contact
 
 def index() -> rx.Component:
-    return rx.vstack(
-        rx.heading("DJ 10tacle", size="7", weight="bold"),
-        stage3d(height="60vh", width="100%"), # Usamos stage3d de nuevo
-        rx.text("Nuevos lanzamientos · Próximos eventos", margin_top="2em"),
-        gap="2em", align="center", padding="2em",
+    """Main page component."""
+    return rx.box(
+        navigation(),
+        hero(),
+        about(),
+        music(),
+        events(),
+        contact(),
+        class_name="min-h-screen bg-black text-white"
     )
 
-app = rx.App()
-app.add_page(index, title="DJ 10tacle")
+# Create the app
+app = rx.App(
+    _state=State,  # <--- CORRECCIÓN AQUÍ
+    style={
+        "font_family": "Inter, sans-serif",
+        "background_color": "#000000",
+        "color": "#ffffff",
+    }
+)
 
-
-
-
-
-
+# Add the main page
+app.add_page(
+    index,
+    title="DJ 10tacle - Electronic Music Producer & DJ",
+    description="Official website of DJ 10tacle - Electronic music producer, DJ and performer"
+)

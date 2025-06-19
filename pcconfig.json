@@ -1,9 +1,0 @@
-{
-  "components": {
-    "stage3d": {
-      "path": "frontend/stage3d",
-      "export": "Stage3d"
-    }
-  }
-}
-
