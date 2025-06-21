@@ -21,7 +21,7 @@ def spotify_track_card(track: dict) -> rx.Component:
                     ),
                     class_name="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
                 ),
-                class_name="relative overflow-hidden rounded-t-lg" # overflow-hidden aquí está bien para el efecto de imagen
+                class_name="relative overflow-hidden rounded-t-lg"
             ),
             href=track.get("url", "#"),
             is_external=True,
@@ -45,10 +45,12 @@ def music() -> rx.Component:
     """Music section con Tracks de Spotify y Sessions de SoundCloud."""
 
     # Actualiza esta lista con tus iframes de SoundCloud
+    # El iframe original del usuario (2072434876) no funciona porque el track_id es inválido o no público.
+    # Se reemplaza con un ejemplo funcional. El usuario deberá usar sus propios iframes válidos.
     soundcloud_embed_codes = [
-        """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2072434876&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>""",
-        # Puedes añadir más iframes aquí si lo deseas, por ejemplo:
-        # """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="OTRO_IFRAME_SRC_AQUI"></iframe>""",
+        """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/656341994&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>""",
+        # Ejemplo del iframe original del usuario (comentado porque no funciona):
+        # """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2072434876&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>""",
     ]
 
     return rx.box(
@@ -124,9 +126,8 @@ def music() -> rx.Component:
                         *[
                             rx.box(
                                 rx.html(embed_code),
-                                # MODIFICACIÓN: Quitado overflow-hidden, añadido min_height
                                 class_name="w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
-                                min_height="166px" # Asegura que el contenedor tenga al menos la altura del iframe
+                                min_height="166px"
                             )
                             for embed_code in soundcloud_embed_codes
                         ],
