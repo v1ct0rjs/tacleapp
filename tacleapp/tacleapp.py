@@ -7,9 +7,9 @@ def index() -> rx.Component:
   return rx.box(
       navigation(),
       hero(),
-      about(),
+      #about(),
       music(),
-      events(),
+      #events(),
       contact(),
       class_name="min-h-screen bg-black text-white"
   )

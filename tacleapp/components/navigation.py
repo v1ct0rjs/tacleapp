@@ -4,11 +4,16 @@ from ..state import State
 
 def navigation() -> rx.Component:
     """Navigation component with mobile menu."""
+    # nav_links = [
+    #     {"name": "Home", "href": "#home"},
+    #     {"name": "About", "href": "#about"},
+    #     {"name": "Music", "href": "#music"},
+    #     {"name": "Events", "href": "#events"},
+    #     {"name": "Contact", "href": "#contact"},
+    # ]
     nav_links = [
         {"name": "Home", "href": "#home"},
-        {"name": "About", "href": "#about"},
         {"name": "Music", "href": "#music"},
-        {"name": "Events", "href": "#events"},
         {"name": "Contact", "href": "#contact"},
     ]
 
