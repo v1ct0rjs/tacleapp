@@ -1,4 +1,5 @@
 import reflex as rx
+from .utils import section_header
 
 
 def music() -> rx.Component:
@@ -33,31 +34,16 @@ def music() -> rx.Component:
 
     return rx.box(
         rx.container(
-            # Section Header
-            rx.flex(
-                rx.heading(
-                    "Latest ",
-                    rx.text("Releases", class_name="text-red-500"),
-                    size="8",
-                    weight="bold",
-                    class_name="mb-6"
-                ),
-                rx.box(class_name="w-24 h-1 bg-red-500 mx-auto mb-8"),
-                rx.text(
-                    "Explore the latest tracks and discover the sound that defines 10TACLE",
-                    size="4",
-                    class_name="text-gray-400 max-w-2xl text-center"
-                ),
-                direction="column",
-                align="center",
-                class_name="text-center mb-16"
+            section_header("Latest ", "Releases"),
+            rx.text(
+                "Explore the latest tracks and discover the sound that defines 10TACLE.",
+                class_name="text-gray-400 max-w-2xl text-center -mt-12 mb-16 mx-auto"
             ),
 
             # Tracks Grid
             rx.grid(
                 *[
                     rx.box(
-                        # Track Image
                         rx.box(
                             rx.image(
                                 src=track["image"],
@@ -66,39 +52,25 @@ def music() -> rx.Component:
                             ),
                             rx.box(
                                 rx.button(
-                                    rx.icon("play", size=16),
-                                    size="2",
-                                    class_name="bg-red-500 hover:bg-red-600 text-white border-0"
+                                    rx.icon("play", size=24, fill="white"),
+                                    size="3",
+                                    radius="full",
+                                    class_name="bg-red-500 hover:bg-red-600 text-white border-0 shadow-lg"
                                 ),
-                                class_name="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+                                class_name="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
                             ),
-                            class_name="relative overflow-hidden"
+                            class_name="relative overflow-hidden rounded-t-lg"
                         ),
 
                         # Track Info
                         rx.box(
-                            rx.heading(track["title"], size="5", weight="bold", class_name="text-white mb-2"),
-                            rx.text(track["genre"], size="2", class_name="text-red-500 mb-2"),
-                            rx.text(track["duration"], size="2", class_name="text-gray-400 mb-4"),
-
-                            # Action Buttons
+                            rx.heading(track["title"], size="5", weight="bold", class_name="font-orbitron text-white mb-2"),
+                            rx.text(track["genre"], size="2", class_name="text-red-500 font-semibold uppercase tracking-wider mb-3"),
                             rx.flex(
-                                rx.button(
-                                    rx.icon("download", size=16, class_name="mr-1"),
-                                    "Download",
-                                    size="2",
-                                    variant="outline",
-                                    class_name="flex-1 border-gray-600 text-gray-300 hover:bg-gray-800 bg-transparent"
-                                ),
-                                rx.button(
-                                    rx.icon("external-link", size=16),
-                                    size="2",
-                                    variant="outline",
-                                    class_name="border-gray-600 text-gray-300 hover:bg-gray-800 bg-transparent"
-                                ),
-                                spacing="2"
+                                rx.icon("clock", size=16, class_name="text-gray-400 mr-2"),
+                                rx.text(track["duration"], size="2", class_name="text-gray-400"),
+                                align="center"
                             ),
-
                             class_name="p-6"
                         ),
 
@@ -106,17 +78,18 @@ def music() -> rx.Component:
                     )
                     for track in tracks
                 ],
-                # CORRECCIÓN AQUÍ:
-                columns={"initial": "1", "sm": "2", "md": "2", "lg": "4"},  # Ajustado para sm y md también
-                spacing="8"  # Asegúrate que "8" esté en la escala 0-9. Si no, ajústalo (ej. "6" o "9")
+                columns={"initial": "1", "sm": "2", "lg": "4"},
+                spacing="6"
             ),
 
             # View All Button
             rx.flex(
                 rx.button(
-                    "View All Releases",
-                    size="4",
-                    class_name="bg-red-500 hover:bg-red-600 text-white border-0 px-8 mt-12"
+                    "View on Spotify",
+                    rx.icon("arrow-right", size=16, class_name="ml-2"),
+                    size="3",
+                    variant="outline",
+                    class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider"
                 ),
                 justify="center"
             ),
