@@ -16,12 +16,13 @@ def index() -> rx.Component:
 
 # Create the app
 app = rx.App(
-  _state=State,  # <--- CORRECCIÓN AQUÍ
-  style={
-      "font_family": "'Poppins', sans-serif",
-      "background_color": "#000000",
-      "color": "#ffffff",
-  }
+    _state=State,
+    stylesheets=["/styles.css"],
+    style={
+        "font_family": "'Poppins', sans-serif",
+        "background_color": "#000000",
+        "color": "#ffffff",
+    },
 )
 
 # Add the main page

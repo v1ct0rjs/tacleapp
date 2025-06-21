@@ -1,60 +1,69 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap");
 
-/* Custom animations and styles */
-@keyframes pulse-red {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-  }
+/* ─── Animaciones y utilidades ya existentes ────────────────────────── */
+@keyframes pulse-red{
+ 0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.7);}
+ 70%   {box-shadow:0 0 0 10px rgba(239,68,68,0);}
+}
+@keyframes wave{
+ 0%,100%{transform:scaleY(1);}
+ 50%    {transform:scaleY(2);}
+}
+.pulse-red{animation:pulse-red 2s cubic-bezier(.4,0,.6,1) infinite;}
+.music-wave{animation:wave 1.5s ease-in-out infinite;}
+.gradient-text{
+ background:linear-gradient(to right,#fff,#ef4444,#fff);
+ -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+ background-clip:text;
 }
 
-@keyframes wave {
-  0%,
-  100% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(2);
-  }
+/* Scroll suave y scrollbar personalizado */
+html{scroll-behavior:smooth;}
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-track{background:#111827;}
+::-webkit-scrollbar-thumb{background:#ef4444;border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:#dc2626;}
+
+/* Fade-up puntual (mantengo por si lo usas en otras secciones) */
+@keyframes fadeUp{
+ from{opacity:0;transform:translateY(10px);}
+ to  {opacity:1;transform:translateY(0);}
+}
+.stanza{opacity:0;animation:fadeUp 1s ease-out forwards;}
+/* …tus reglas anteriores se mantienen … */
+
+/* ── Slideshow de estrofas — UNA visible cada 5 s ─────────── */
+.slideshow{
+  position:relative;   /* ancla los hijos absolutos          */
+  display:block;       /* evita ‘flex’ heredado de Reflex    */
+  min-height:9rem;     /* reserva espacio (≈3 líneas grandes)*/
+  overflow:hidden;
+  line-height:1.3;
 }
 
-.pulse-red {
-  animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+/* Cada estrofa */
+.slide{
+  position:absolute;
+  inset:0;             /* top-0 right-0 bottom-0 left-0      */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  opacity:0;
+  animation:cycleFade 20s infinite;   /* 4 frases × 5 s          */
+  animation-fill-mode:forwards;       /* conserva último estado  */
 }
 
-.music-wave {
-  animation: wave 1.5s ease-in-out infinite;
-}
+/* 5 s por frase: 1 s fade-in · 3 s visible · 1 s fade-out */
+.slide:nth-child(1){animation-delay:0s;}
+.slide:nth-child(2){animation-delay:5s;}
+.slide:nth-child(3){animation-delay:10s;}
+.slide:nth-child(4){animation-delay:15s;}
 
-.gradient-text {
-  background: linear-gradient(to right, #ffffff, #ef4444, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #111827;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #ef4444;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #dc2626;
+@keyframes cycleFade{
+  0%   {opacity:0;}
+  5%   {opacity:1;}   /* 1 s fade-in   */
+  35%  {opacity:1;}   /* 3 s visible   */
+  45%  {opacity:0;}   /* 1 s fade-out  */
+  100% {opacity:0;}   /* pausa hasta reinicio */
 }
