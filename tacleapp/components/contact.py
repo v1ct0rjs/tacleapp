@@ -58,8 +58,23 @@ def contact() -> rx.Component:
                             direction="column",
                             spacing="4"
                         ),
-                        on_submit=State.submit_contact_form,
+                        on_submit=State.handle_contact_submit,
                         reset_on_submit=True
+                    ),
+                    rx.cond(
+                        State.form_submitted,
+                        rx.callout(
+                            "¡Mensaje enviado con éxito!",
+                            icon="check", # CORREGIDO: check_circle a check
+                            color_scheme="green",
+                            margin_top="1em",
+                            # Para que desaparezca, necesitaríamos un evento que ponga form_submitted a False
+                            # Por ejemplo, después de un tiempo usando rx.call_script o al navegar.
+                            # O un botón para cerrarlo.
+                            # Simplificando: on_mount=lambda: State.set_form_submitted(False) podría causar un bucle si no se maneja con cuidado.
+                            # Mejor manejar el reseteo de form_submitted de otra forma o dejarlo persistente hasta la próxima recarga/navegación.
+                            # Por ahora, lo dejamos así para ver si se muestra.
+                        )
                     ),
                     class_name="bg-gray-900/50 rounded-lg p-8 border border-gray-800"
                 ),
@@ -100,7 +115,6 @@ def contact() -> rx.Component:
                 spacing="6"
             ),
 
-            # Footer
             rx.box(
                 rx.text("© 2024 10TACLE. All rights reserved.", size="2", class_name="text-gray-500 text-center"),
                 class_name="mt-20 pt-8 border-t border-gray-800"

@@ -1,6 +1,7 @@
 import reflex as rx
 from .utils import section_header
-from ..state import State  # Importar el State
+from ..state import State
+
 
 def spotify_track_card(track: dict) -> rx.Component:
     """Componente para una tarjeta de música de Spotify."""
@@ -26,7 +27,6 @@ def spotify_track_card(track: dict) -> rx.Component:
             href=track.get("url", "#"),
             is_external=True,
         ),
-        # Track Info
         rx.box(
             rx.heading(track.get("title", "Track Desconocido"), size="4", weight="bold",
                        class_name="font-orbitron text-white mb-1 truncate"),
@@ -41,16 +41,13 @@ def spotify_track_card(track: dict) -> rx.Component:
         class_name="group bg-gray-900/50 rounded-lg overflow-hidden border border-gray-800 hover:border-red-500/50 transition-all duration-300"
     )
 
+
 def music() -> rx.Component:
     """Music section con Tracks de Spotify y Sessions de SoundCloud."""
+    print(">>> [MUSIC.PY] Componente music() está siendo renderizado/montado <<<")
 
-    # Actualiza esta lista con tus iframes de SoundCloud
-    # El iframe original del usuario (2072434876) no funciona porque el track_id es inválido o no público.
-    # Se reemplaza con un ejemplo funcional. El usuario deberá usar sus propios iframes válidos.
     soundcloud_embed_codes = [
         """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/656341994&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>""",
-        # Ejemplo del iframe original del usuario (comentado porque no funciona):
-        # """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2072434876&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>""",
     ]
 
     return rx.box(
@@ -64,6 +61,27 @@ def music() -> rx.Component:
                     "Mis últimos lanzamientos y producciones disponibles en Spotify.",
                     class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10"
                 ),
+
+                # --- ESTE ES EL BOTÓN VERDE DE PRUEBA ---
+                rx.button(
+                    "Test Click Síncrono",  # Texto del botón verde
+                    on_click=State.simple_click_test,
+                    color_scheme="green",
+                    margin_y="0.5em",
+                ),
+                # --- Texto que debe cambiar con el botón verde ---
+                rx.text(State.click_test_message, color="lightgreen", margin_bottom="1em"),  # Aumentado margen inferior
+
+                # --- Este es el botón azul ---
+                rx.button(
+                    "Cargar Tracks (Async)",  # Texto actualizado para el botón azul
+                    on_click=State.load_initial_spotify_tracks,
+                    color_scheme="blue",
+                    margin_y="0.5em",
+                ),
+                # --- Texto para el botón azul ---
+                rx.text(State.debug_message, margin_y="0.5em", color="lightblue"),
+
                 rx.cond(
                     State.is_loading_spotify_tracks,
                     rx.center(rx.spinner(size="3", color="red"), class_name="h-64"),
@@ -74,7 +92,7 @@ def music() -> rx.Component:
                                 rx.icon("triangle-alert", size=48, class_name="text-yellow-500"),
                                 rx.text("Error al cargar tracks de Spotify:", class_name="text-lg font-semibold"),
                                 rx.text(State.spotify_error, class_name="text-gray-400 text-center"),
-                                rx.button("Intentar de nuevo", on_click=State.fetch_spotify_tracks,
+                                rx.button("Intentar de nuevo", on_click=State.load_initial_spotify_tracks,
                                           class_name="mt-4 bg-red-500 hover:bg-red-600"),
                                 align="center", spacing="3"
                             ),
@@ -149,7 +167,7 @@ def music() -> rx.Component:
                             size="3", variant="outline",
                             class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider"
                         ),
-                        href="https://soundcloud.com/tu-nombre-de-usuario", # Reemplaza con tu URL de perfil de SoundCloud
+                        href="https://soundcloud.com/10tacle",
                         is_external=True,
                     ),
                     justify="center",
@@ -162,5 +180,4 @@ def music() -> rx.Component:
         ),
         id="music",
         class_name="py-20 bg-black",
-        on_mount=State.fetch_spotify_tracks
     )

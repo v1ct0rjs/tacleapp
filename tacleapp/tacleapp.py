@@ -16,7 +16,7 @@ def index() -> rx.Component:
 
 # Create the app
 app = rx.App(
-    _state=State,
+    _state=State, # <--- VOLVER A _state
     stylesheets=["/styles.css"],
     style={
         "font_family": "'Poppins', sans-serif",
