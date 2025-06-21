@@ -1,8 +1,6 @@
 # hero.py
 import reflex as rx
 
-import reflex as rx
-
 def hero_text() -> rx.Component:
     lines = [
         "The purest TECHNO throbs, strong and sensitive is incorruptible, brave and unique.",
@@ -10,13 +8,19 @@ def hero_text() -> rx.Component:
         "The purest TECHNO don't fake love nor feign freedom.",
         "TECHNO is you and me."
     ]
-    spans = [rx.text(line, class_name="slide gradient-text") for line in lines]
-    return rx.box(
+    spans = []
+    for i, line in enumerate(lines):
+        spans.append(
+            rx.text(
+                line,
+                class_name="stanza",
+                style={"animation_delay": f"{i * 1.5}s"}
+            )
+        )
+    return rx.box(  # Usamos box en lugar de div
         *spans,
-        class_name="slideshow text-gray-300 mb-12 max-w-2xl text-center leading-relaxed"
+        class_name="text-gray-300 mb-12 max-w-2xl text-center leading-relaxed"
     )
-
-
 
 def hero() -> rx.Component:
     social_buttons_data = [
@@ -49,7 +53,7 @@ def hero() -> rx.Component:
         rx.container(
             rx.flex(
                 rx.image(src="/logo_header.png", alt="10TACLE Logo", class_name="h-auto w-full max-w-md mx-auto mb-6"),
-                rx.text("Dj, radio host & electronic music producer", size="5",
+                rx.text("Electronic Music Producer & DJ", size="5",
                         class_name="font-orbitron text-gray-400 tracking-widest uppercase mb-8",
                         as_="div"),
                 hero_text(),
