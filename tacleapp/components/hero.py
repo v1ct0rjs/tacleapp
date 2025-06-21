@@ -17,7 +17,7 @@ def hero() -> rx.Component:
             rx.flex(
                 # Main Logo
                 rx.image(
-                    src="/logo.png",
+                    src="/logo_header.png",
                     alt="10TACLE Logo",
                     class_name="h-auto w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto mb-6"
                 ),
