@@ -3,48 +3,8 @@ from .utils import section_header
 from ..state import State
 
 
-def spotify_track_card(track: dict) -> rx.Component:
-    """Componente para una tarjeta de música de Spotify."""
-    return rx.box(
-        rx.link(
-            rx.box(
-                rx.image(
-                    src=track.get("image", "/placeholder.svg?height=300&width=300"),
-                    alt=track.get("title", "Track image"),
-                    class_name="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                ),
-                rx.box(
-                    rx.button(
-                        rx.icon("play", size=24, fill="white"),
-                        size="3",
-                        radius="full",
-                        class_name="bg-red-500 hover:bg-red-600 text-white border-0 shadow-lg"
-                    ),
-                    class_name="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-                ),
-                class_name="relative overflow-hidden rounded-t-lg"
-            ),
-            href=track.get("url", "#"),
-            is_external=True,
-        ),
-        rx.box(
-            rx.heading(track.get("title", "Track Desconocido"), size="4", weight="bold",
-                       class_name="font-orbitron text-white mb-1 truncate"),
-            rx.text(track.get("artists", "Artista Desconocido"), size="2", class_name="text-gray-400 mb-2 truncate"),
-            rx.flex(
-                rx.icon("clock", size=16, class_name="text-gray-400 mr-2"),
-                rx.text(track.get("duration", "00:00"), size="2", class_name="text-gray-400"),
-                align="center"
-            ),
-            class_name="p-4"
-        ),
-        class_name="group bg-gray-900/50 rounded-lg overflow-hidden border border-gray-800 hover:border-red-500/50 transition-all duration-300"
-    )
-
-
 def music() -> rx.Component:
     """Music section con Tracks de Spotify y Sessions de SoundCloud."""
-    print(">>> [MUSIC.PY] Componente music() está siendo renderizado/montado <<<")
 
     spotify_playlist = [
         """<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5uGYoNGFfm9jB1Mm9PHHaj?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>"""
@@ -143,23 +103,10 @@ def music() -> rx.Component:
                         class_name="h-32"
                     )
                 ),
-                # rx.flex(
-                #     rx.link(
-                #         rx.button(
-                #             "SoundCloud",
-                #             rx.icon("arrow-right", size=16, class_name="ml-2"),
-                #             size="3", variant="outline",
-                #             class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider"
-                #         ),
-                #         href="https://soundcloud.com/10tacle",
-                #         is_external=True,
-                #     ),
-                #     justify="center",
-                #     class_name="w-full"
-                # ),
                 id="soundcloud-sessions",
                 class_name="pt-10"
             ),
+            # --- Podcast (SoundCloud) ---
             rx.box(
                 rx.heading("Podcast", size="7", weight="bold",
                            class_name="font-orbitron text-white mb-3 text-center sm:text-left"),

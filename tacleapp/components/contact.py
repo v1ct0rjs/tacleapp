@@ -7,10 +7,10 @@ def contact() -> rx.Component:
     """Contact section component."""
 
     social_links = [
-        {"icon": "instagram", "href": "#", "label": "Instagram"},
-        {"icon": "twitter", "href": "#", "label": "Twitter"},
-        {"icon": "facebook", "href": "#", "label": "Facebook"},
-        {"icon": "youtube", "href": "#", "label": "YouTube"},
+        {"icon": "instagram", "href": "https://www.instagram.com/dj_10tacle/", "label": "Instagram"},
+        {"icon": "twitter", "href": "https://x.com/Dj10Tacle", "label": "Twitter"},
+        {"icon": "/tiktok-svgrepo-com.svg", "href": "https://www.tiktok.com/@dj10tacle", "label": "TikTok"},
+        {"icon": "/twitch-white-icon.svg", "href": "https://www.twitch.tv/v1ct0rdev", "label": "Twitch"},
     ]
 
     return rx.box(
@@ -64,16 +64,10 @@ def contact() -> rx.Component:
                     rx.cond(
                         State.form_submitted,
                         rx.callout(
-                            "¡Mensaje enviado con éxito!",
-                            icon="check", # CORREGIDO: check_circle a check
+                            "Thank you for your message! We'll get back to you soon.",
+                            icon="check",
                             color_scheme="green",
                             margin_top="1em",
-                            # Para que desaparezca, necesitaríamos un evento que ponga form_submitted a False
-                            # Por ejemplo, después de un tiempo usando rx.call_script o al navegar.
-                            # O un botón para cerrarlo.
-                            # Simplificando: on_mount=lambda: State.set_form_submitted(False) podría causar un bucle si no se maneja con cuidado.
-                            # Mejor manejar el reseteo de form_submitted de otra forma o dejarlo persistente hasta la próxima recarga/navegación.
-                            # Por ahora, lo dejamos así para ver si se muestra.
                         )
                     ),
                     class_name="bg-gray-900/50 rounded-lg p-8 border border-gray-800"
@@ -84,9 +78,8 @@ def contact() -> rx.Component:
                     rx.box(
                         rx.heading("Contact Info", size="5", weight="bold", class_name="font-orbitron text-white mb-4"),
                         rx.flex(
-                            rx.flex(rx.icon("mail", size=18, class_name="text-red-500 mr-3"), rx.text("booking@dj10tacle.com"), align="center"),
-                            rx.flex(rx.icon("phone", size=18, class_name="text-red-500 mr-3"), rx.text("+1 (555) 123-4567"), align="center"),
-                            rx.flex(rx.icon("map-pin", size=18, class_name="text-red-500 mr-3"), rx.text("Los Angeles, CA"), align="center"),
+                            rx.flex(rx.icon("mail", size=18, class_name="text-red-500 mr-3"), rx.text("dj10tacle@gmail.com"), align="center"),
+                            rx.flex(rx.icon("map-pin", size=18, class_name="text-red-500 mr-3"), rx.text("Spain"), align="center"),
                             direction="column",
                             spacing="3"
                         )
@@ -96,10 +89,18 @@ def contact() -> rx.Component:
                         rx.flex(
                             *[
                                 rx.link(
-                                    rx.icon(social["icon"], size=20),
+                                    # Condicional para usar la máscara SVG o el icono normal
+                                    rx.box(
+                                        class_name=f"w-5 h-5 bg-gray-400 group-hover:bg-white [mask:url({social['icon']})_no-repeat_center_/_contain] transition-colors duration-300"
+                                    ) if ".svg" in social["icon"] else rx.icon(
+                                        social["icon"],
+                                        size=20,
+                                        class_name="text-gray-400 group-hover:text-white transition-colors duration-300"
+                                    ),
                                     href=social["href"],
                                     is_external=True,
-                                    class_name="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-500 transition-all duration-300"
+                                    # Añadimos 'group' para que 'group-hover' funcione en los hijos
+                                    class_name="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-red-500 transition-all duration-300 group"
                                 )
                                 for social in social_links
                             ],
@@ -116,7 +117,7 @@ def contact() -> rx.Component:
             ),
 
             rx.box(
-                rx.text("© 2024 10TACLE. All rights reserved.", size="2", class_name="text-gray-500 text-center"),
+                rx.text("© 2025 10TACLE. All rights reserved.", size="2", class_name="text-gray-500 text-center"),
                 class_name="mt-20 pt-8 border-t border-gray-800"
             ),
 
