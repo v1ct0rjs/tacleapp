@@ -46,6 +46,10 @@ def music() -> rx.Component:
     """Music section con Tracks de Spotify y Sessions de SoundCloud."""
     print(">>> [MUSIC.PY] Componente music() está siendo renderizado/montado <<<")
 
+    spotify_playlist = [
+        """<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5uGYoNGFfm9jB1Mm9PHHaj?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>"""
+    ]
+
     soundcloud_embed_codes = [
         """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1512589402&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2090535147&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
@@ -71,58 +75,28 @@ def music() -> rx.Component:
                     "Last songs on Spotify.",
                     class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10"
                 ),
-
-                # --- ESTE ES EL BOTÓN VERDE DE PRUEBA ---
-                rx.button(
-                    "Test Click Síncrono",  # Texto del botón verde
-                    on_click=State.simple_click_test,
-                    color_scheme="green",
-                    margin_y="0.5em",
-                ),
-                # --- Texto que debe cambiar con el botón verde ---
-                rx.text(State.click_test_message, color="lightgreen", margin_bottom="1em"),  # Aumentado margen inferior
-
-                # --- Este es el botón azul ---
-                rx.button(
-                    "Cargar Tracks (Async)",  # Texto actualizado para el botón azul
-                    on_click=State.load_initial_spotify_tracks,
-                    color_scheme="blue",
-                    margin_y="0.5em",
-                ),
-                # --- Texto para el botón azul ---
-                rx.text(State.debug_message, margin_y="0.5em", color="lightblue"),
-
                 rx.cond(
-                    State.is_loading_spotify_tracks,
-                    rx.center(rx.spinner(size="3", color="red"), class_name="h-64"),
-                    rx.cond(
-                        State.spotify_error,
-                        rx.center(
-                            rx.vstack(
-                                rx.icon("triangle-alert", size=48, class_name="text-yellow-500"),
-                                rx.text("Error al cargar tracks de Spotify:", class_name="text-lg font-semibold"),
-                                rx.text(State.spotify_error, class_name="text-gray-400 text-center"),
-                                rx.button("Intentar de nuevo", on_click=State.load_initial_spotify_tracks,
-                                          class_name="mt-4 bg-red-500 hover:bg-red-600"),
-                                align="center", spacing="3"
-                            ),
-                            class_name="h-64 p-8 bg-gray-900/50 rounded-lg border border-gray-800"
-                        ),
-                        rx.cond(
-                            State.spotify_tracks,
-                            rx.grid(
-                                rx.foreach(State.spotify_tracks, spotify_track_card),
-                                columns={"initial": "1", "sm": "2", "lg": "4"},
-                                spacing="6"
-                            ),
-                            rx.center(
-                                rx.text("No hay tracks de Spotify para mostrar en este momento.",
-                                        class_name="text-gray-500"),
-                                class_name="h-64"
+                    len(spotify_playlist) > 0,
+                    rx.vstack(
+                        *[
+                            rx.box(
+                                rx.html(embed_code),
+                                class_name="w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
+                                min_height="166px"
                             )
-                        )
+                            for embed_code in spotify_playlist
+                        ],
+                        spacing="6",
+                        align="center",
+                        class_name="w-full"
+                    ),
+                    rx.center(
+                        rx.text("No hay tracks para mostrar en este momento.",
+                                class_name="text-gray-500"),
+                        class_name="h-32"
                     )
                 ),
+
                 rx.flex(
                     rx.link(
                         rx.button(

@@ -1,1 +1,1 @@
-from .tacleapp import app   # reexporta el objeto global
+#from .tacleapp import app   # reexporta el objeto global
