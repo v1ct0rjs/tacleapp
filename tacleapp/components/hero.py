@@ -14,14 +14,14 @@ def hero_text() -> rx.Component:
             rx.text(
                 line,
                 class_name="stanza",
-                font_size={"base": "0.875rem", "sm": "1rem"},
+                font_size={"base": "0.75rem", "sm": "0.875rem", "md": "1rem"},
                 style={"animation_delay": f"{i * 1.5}s"}
             )
         )
     return rx.box(
         *spans,
         class_name="text-gray-300 mb-8 sm:mb-12 text-center leading-relaxed",
-        max_width={"base": "90%", "sm": "80%", "md": "640px"},
+        max_width={"base": "95%", "sm": "80%", "md": "640px"},
         margin_x="auto"
     )
 
@@ -74,13 +74,13 @@ def hero() -> rx.Component:
                     spacing={"base": "3", "sm": "4"}, # Adjusted spacing
                     justify="center",
                     wrap="wrap",
-                    class_name="mt-6 sm:mt-8"
+                    class_name="mt-4 sm:mt-6"
                 ),
                 direction="column",
                 align="center",
                 class_name="text-center"
             ),
-            class_name="relative z-10 max-w-5xl mx-auto px-4" # Increased max-width of container slightly
+            class_name="relative z-10 max-w-5xl mx-auto px-3 sm:px-4"
         ),
         id="home",
         class_name="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-12 md:pt-20"
