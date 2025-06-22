@@ -167,7 +167,7 @@ def music() -> rx.Component:
                 rx.flex(
                     rx.link(
                         rx.button(
-                            "Más en SoundCloud",
+                            "SoundCloud",
                             rx.icon("arrow-right", size=16, class_name="ml-2"),
                             size="3", variant="outline",
                             class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider"
