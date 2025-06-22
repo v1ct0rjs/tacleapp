@@ -47,11 +47,17 @@ def music() -> rx.Component:
     print(">>> [MUSIC.PY] Componente music() está siendo renderizado/montado <<<")
 
     soundcloud_embed_codes = [
-        """<iframe width="100%" height="0" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2090535147&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="0" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2007493087&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="0" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1972991863&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="0" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1916937122&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="0" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2072434876&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1512589402&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2090535147&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2007493087&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1972991863&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1916937122&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2072434876&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+    ]
+    podcast_embed_codes = [
+        """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1521291607&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1470611422&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1470612097&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
     ]
 
     return rx.box(
@@ -163,22 +169,67 @@ def music() -> rx.Component:
                         class_name="h-32"
                     )
                 ),
+                # rx.flex(
+                #     rx.link(
+                #         rx.button(
+                #             "SoundCloud",
+                #             rx.icon("arrow-right", size=16, class_name="ml-2"),
+                #             size="3", variant="outline",
+                #             class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider"
+                #         ),
+                #         href="https://soundcloud.com/10tacle",
+                #         is_external=True,
+                #     ),
+                #     justify="center",
+                #     class_name="w-full"
+                # ),
+                id="soundcloud-sessions",
+                class_name="pt-10"
+            ),
+            rx.box(
+                rx.heading("Podcast", size="7", weight="bold",
+                           class_name="font-orbitron text-white mb-3 text-center sm:text-left"),
+                rx.text(
+                    "Podcast episodes on SoundCloud.",
+                    class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10"
+                ),
+                rx.cond(
+                    len(podcast_embed_codes) > 0,
+                    rx.vstack(
+                        *[
+                            rx.box(
+                                rx.html(embed_code),
+                                class_name="w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
+                                min_height="166px"
+                            )
+                            for embed_code in podcast_embed_codes
+                        ],
+                        spacing="6",
+                        align="center",
+                        class_name="w-full"
+                    ),
+                    rx.center(
+                        rx.text("No hay podcasts de SoundCloud para mostrar en este momento.",
+                                class_name="text-gray-500"),
+                        class_name="h-32"
+                    )
+                ),
                 rx.flex(
                     rx.link(
                         rx.button(
                             "SoundCloud",
                             rx.icon("arrow-right", size=16, class_name="ml-2"),
                             size="3", variant="outline",
-                            class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider"
+                            class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider",
                         ),
                         href="https://soundcloud.com/10tacle",
                         is_external=True,
                     ),
                     justify="center",
-                    class_name="w-full"
+                    class_name="w-full",
                 ),
-                id="soundcloud-sessions",
-                class_name="pt-10"
+                id="soundcloud-podcasts",
+                class_name="pt-10",
             ),
             class_name="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         ),
