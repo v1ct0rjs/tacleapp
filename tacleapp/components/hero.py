@@ -14,12 +14,15 @@ def hero_text() -> rx.Component:
             rx.text(
                 line,
                 class_name="stanza",
+                font_size={"base": "0.875rem", "sm": "1rem"},
                 style={"animation_delay": f"{i * 1.5}s"}
             )
         )
-    return rx.box(  # Usamos box en lugar de div
+    return rx.box(
         *spans,
-        class_name="text-gray-300 mb-12 max-w-2xl text-center leading-relaxed"
+        class_name="text-gray-300 mb-8 sm:mb-12 text-center leading-relaxed",
+        max_width={"base": "90%", "sm": "80%", "md": "640px"},
+        margin_x="auto"
     )
 
 def hero() -> rx.Component:
@@ -33,16 +36,17 @@ def hero() -> rx.Component:
     button_components = []
     for btn in social_buttons_data:
         svg_url = rx.asset(btn["icon"])
-        icon = rx.image(src=svg_url, height="18px", class_name="mr-2", alt=f"{btn['name']} icon")
+        # Explicitly set width and height for the icons within buttons
+        icon = rx.image(src=svg_url, width="18px", height="18px", class_name="mr-2", alt=f"{btn['name']} icon")
         btn_comp = rx.button(
             rx.hstack(icon, rx.text(btn["name"]), spacing="2", align="center"),
             variant="outline",
-            size="2",
             class_name=(
                 "border-gray-600 text-gray-300 "
                 "hover:bg-red-500 hover:text-white hover:border-red-500 "
                 "font-semibold tracking-wider transition-colors duration-300 "
-                "px-6 py-5"
+                # Adjusted padding and text size for better responsiveness
+                "px-4 py-2 text-sm sm:px-5 sm:py-2.5"
             )
         )
         button_components.append(rx.link(btn_comp, href=btn["href"], is_external=True))
@@ -52,15 +56,32 @@ def hero() -> rx.Component:
         rx.box(class_name="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-red-900/25 via-transparent to-transparent opacity-50"),
         rx.container(
             rx.flex(
-                rx.image(src="/logo_header.png", alt="10TACLE Logo", class_name="h-auto w-full max-w-md mx-auto mb-6"),
-                rx.text("Electronic Music Producer & DJ", size="5",
-                        class_name="font-orbitron text-gray-400 tracking-widest uppercase mb-8",
-                        as_="div"),
+                rx.image(
+                    src="/logo_header.png",
+                    alt="10TACLE Logo",
+                    # Reverted to simpler max_width, ensure w-full allows it to scale down
+                    class_name="h-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mb-6",
+                ),
+                rx.text(
+                    "Electronic Music Producer & DJ",
+                    font_size={"base": "0.8rem", "sm": "1rem", "md": "1.25rem"},
+                    class_name="font-orbitron text-gray-400 tracking-widest uppercase mb-6 sm:mb-8 text-center",
+                    as_="div"
+                ),
                 hero_text(),
-                rx.flex(*button_components, spacing="4", justify="center", wrap="wrap", class_name="mt-8"),
-                direction="column", align="center", class_name="text-center"
+                rx.flex(
+                    *button_components,
+                    spacing={"base": "3", "sm": "4"}, # Adjusted spacing
+                    justify="center",
+                    wrap="wrap",
+                    class_name="mt-6 sm:mt-8"
+                ),
+                direction="column",
+                align="center",
+                class_name="text-center"
             ),
-            class_name="relative z-10 max-w-4xl mx-auto px-4"
+            class_name="relative z-10 max-w-5xl mx-auto px-4" # Increased max-width of container slightly
         ),
-        id="home", class_name="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+        id="home",
+        class_name="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-12 md:pt-20"
     )
