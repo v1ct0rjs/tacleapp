@@ -28,6 +28,6 @@ app = rx.App(
 # Add the main page
 app.add_page(
   index,
-  title="DJ 10tacle - Electronic Music Producer & DJ",
-  description="Official website of DJ 10tacle - Electronic music producer, DJ and performer"
+  title="10tacle - Electronic Music Producer & DJ",
+  description="Official website of 10tacle - Electronic music producer, DJ and radio host"
 )
