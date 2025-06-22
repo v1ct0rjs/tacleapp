@@ -18,9 +18,7 @@ COPY . .
 
 RUN bash remote_build.sh
 
-ENV FRONTEND_PORT=3000
-ENV BACKEND_PORT=8000
-
 EXPOSE 3000
 
-CMD ["reflex", "run", "--env", "prod", "--frontend-port", "3000", "--backend-port", "8000"]
+# Comando simple - configuración en rxconfig.py
+CMD ["reflex", "run"]
