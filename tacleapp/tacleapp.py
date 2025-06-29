@@ -1,37 +1,33 @@
-"""Welcome to Reflex! This file outlines the steps to create a basic app."""
-
 import reflex as rx
-
-from rxconfig import config
-
-
-class State(rx.State):
-    """The app state."""
-
+from .state import State
+from .components import navigation, hero, about, music, events, contact
 
 def index() -> rx.Component:
-    # Welcome Page (Index)
-    return rx.container(
-        rx.color_mode.button(position="top-right"),
-        rx.vstack(
-            rx.heading("Welcome to Reflex!", size="9"),
-            rx.text(
-                "Get started by editing ",
-                rx.code(f"{config.app_name}/{config.app_name}.py"),
-                size="5",
-            ),
-            rx.link(
-                rx.button("Check out our docs!"),
-                href="https://reflex.dev/docs/getting-started/introduction/",
-                is_external=True,
-            ),
-            spacing="5",
-            justify="center",
-            min_height="85vh",
-        ),
-        rx.logo(),
-    )
+  """Main page component."""
+  return rx.box(
+      navigation(),
+      hero(),
+      #about(),
+      music(),
+      #events(),
+      contact(),
+      class_name="min-h-screen bg-black text-white"
+  )
 
+# Create the app
+app = rx.App(
+    _state=State,
+    stylesheets=["/styles.css"],
+    style={
+        "font_family": "'Poppins', sans-serif",
+        "background_color": "#000000",
+        "color": "#ffffff",
+    },
+)
 
-app = rx.App()
-app.add_page(index)
+# Add the main page
+app.add_page(
+  index,
+  title="10tacle - Electronic Music Producer & DJ",
+  description="Official website of 10tacle - Electronic music producer, DJ and radio host"
+)

@@ -1,0 +1,122 @@
+# Docker
+Dockerfile
+.dockerignore
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Entornos virtuales de Python
+.venv
+venv
+env
+ENV
+*.Python
+
+# Caché y archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de distribución de Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Instaladores de Pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de configuración de IDEs y editores
+.idea/
+.vscode/
+*.project
+*.pydevproject
+*.sublime-project
+*.sublime-workspace
+.settings/
+.tmproj/
+*.bak
+*.swp
+*~
+*.orig
+
+# Artefactos de compilación de Reflex y Node.js
+# Estos se generarán dentro del contenedor o no son necesarios para la imagen final.
+.web/
+node_modules/
+public/bundles/ # Si usas webpack o similar fuera de Reflex
+.next/ # Si alguna vez ejecutas Next.js localmente fuera de Reflex
+
+# Bases de datos SQLite y otros archivos de datos locales
+*.sqlite3
+*.db
+*.db3
+local_settings.py # Si tienes configuraciones locales separadas
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs y archivos temporales
+logs/
+*.log
+*.log.*
+*.pot
+*.tmp
+*.temp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cobertura de pruebas y otros artefactos de testing
+.cache/
+.pytest_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Archivos específicos de macOS
+.AppleDouble
+.LSOverride
+
+# Archivos de configuración de linters/formatters si no son necesarios en la imagen
+.flake8
+.pylintrc
+pyproject.toml # A menos que sea necesario para la construcción (ej. con Poetry/PDM)
+poetry.lock    # Si usas Poetry
+pdm.lock       # Si usas PDM
+
+# Archivos de entorno (si no se gestionan con variables de entorno en el despliegue)
+.env
+.env.*
+!.env.example # A menudo se incluye un ejemplo
+
+# Documentación generada
+docs/_build/
+site/
+
+# Otros
+celerybeat-schedule
+celerybeat.pid
