@@ -27,10 +27,10 @@ def hero_text() -> rx.Component:
 
 def hero() -> rx.Component:
     social_buttons_data = [
-        {"name": "Beatport",   "icon": "TBG-PrimaryIcon-White.svg", "href": "https://..."},
-        {"name": "Spotify",    "icon": "spotify-white-icon.svg",     "href": "https://..."},
-        {"name": "SoundCloud", "icon": "soundcloud-white-icon.svg",  "href": "https://..."},
-        {"name": "Twitch",     "icon": "twitch-white-icon.svg",      "href": "https://..."},
+        {"name": "Beatport",   "icon": "TBG-PrimaryIcon-White.svg", "href": "https://www.beatport.com/es/artist/10tacle/1121502"},
+        {"name": "Spotify",    "icon": "spotify-white-icon.svg",     "href": "https://open.spotify.com/intl-es/artist/4ycl0vQK5aynXLJeRFpanC"},
+        {"name": "SoundCloud", "icon": "soundcloud-white-icon.svg",  "href": "https://soundcloud.com/10tacle"},
+        {"name": "Twitch",     "icon": "twitch-white-icon.svg",      "href": "https://www.twitch.tv/v1ct0rdev"},
     ]
 
     # Botones sociales
