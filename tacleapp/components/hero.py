@@ -50,7 +50,7 @@ def hero() -> rx.Component:
         )
         buttons.append(rx.link(btn_comp, href=btn["href"], is_external=True))
 
-    return rx.scroll_area(
+    return rx.box(
         rx.container(
             rx.flex(
                 rx.image(
@@ -78,8 +78,5 @@ def hero() -> rx.Component:
             ),
             class_name="relative z-10 max-w-5xl mx-auto px-3 sm:px-4"
         ),
-        scrollbars="vertical",
-        type="auto",
-        max_height="100vh",
-        class_name="relative min-h-screen flex items-center justify-center overflow-auto pt-24 pb-12 bg-black"
+        class_name="relative min-h-screen flex items-center justify-center pt-24 pb-12"
     )
