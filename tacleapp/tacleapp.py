@@ -26,85 +26,75 @@ def index() -> rx.Component:
 
 def get_custom_css():
     return """
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+    /* Reset básico */
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    /* 1 sola zona de scroll y sin desplazamiento horizontal */
+    html, body, #__next {
+        height: 100%;
+        min-height: 100%;
+        overflow-x: clip; /* evita doble barra horizontal por sombras/transform */
+        background-color: #000;
     }
 
-    body, html {
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow-x: hidden;
-        background-color: #000000;
-    }
-
+    /* Contenedor raíz de la página */
     .futuristic-bg {
         position: relative;
-        background: 
-            linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px),
-            radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+        isolation: isolate; /* crea un stacking context propio */
+        min-height: 100%;
+        /* Fondo base (grid + puntos) atado al viewport para que abarque toda la página */
+        background:
+            linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px),
+            radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
         background-size: 40px 40px, 40px 40px, 20px 20px;
-        animation: matrix-drift 20s linear infinite;
-        min-height: 100vh;
+        /* Esta línea hace que el fondo se mantenga mientras haces scroll */
+        background-attachment: fixed, fixed, fixed;
+    }
+
+    /* Overlays animados pegados al viewport (no al alto del contenedor) */
+    .futuristic-bg::before,
+    .futuristic-bg::after {
+        content: "";
+        position: fixed;   /* clave: fijo al viewport */
+        inset: 0;          /* top/right/bottom/left: 0 */
+        pointer-events: none;
+        z-index: 0;        /* debajo del contenido */
     }
 
     .futuristic-bg::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background: linear-gradient(transparent 98%, rgba(255,255,255,0.3) 99%, transparent 100%);
+        background: linear-gradient(transparent 98%, rgba(255,255,255,0.25) 99%, transparent 100%);
         background-size: 100% 100px;
         animation: scan-line 6s linear infinite;
-        pointer-events: none;
-        z-index: 1;
+        opacity: .7;
     }
 
     .futuristic-bg::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background: 
-            radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 1px, transparent 2px),
-            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 1px, transparent 2px),
-            radial-gradient(circle at 40% 40%, rgba(255,255,255,0.12) 1px, transparent 2px);
+        background:
+            radial-gradient(circle at 20% 80%, rgba(255,255,255,0.12) 1px, transparent 2px),
+            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12) 1px, transparent 2px),
+            radial-gradient(circle at 40% 40%, rgba(255,255,255,0.08) 1px, transparent 2px);
         background-size: 60px 60px, 80px 80px, 100px 100px;
         animation: particles-float 15s ease-in-out infinite;
-        pointer-events: none;
+    }
+
+    /* El contenido siempre por encima de los overlays */
+    .futuristic-bg > * {
+        position: relative;
         z-index: 1;
     }
 
-    /* Ensure content appears above background effects */
-    .futuristic-bg > * {
-        position: relative;
-        z-index: 2;
-    }
-
-    @keyframes matrix-drift {
-        0% { transform: translateY(0) translateX(0); }
-        100% { transform: translateY(40px) translateX(20px); }
-    }
-
     @keyframes scan-line {
-        0% { transform: translateY(-100px); opacity: 0; }
-        10% { opacity: 0.8; }
-        90% { opacity: 0.8; }
-        100% { transform: translateY(100vh); opacity: 0; }
+        0%   { transform: translateY(0); }
+        100% { transform: translateY(100px); }
     }
-
     @keyframes particles-float {
         0%, 100% { transform: translateY(0) rotate(0deg); }
-        33% { transform: translateY(-20px) rotate(120deg); }
-        66% { transform: translateY(10px) rotate(240deg); }
+        33%      { transform: translateY(-20px) rotate(120deg); }
+        66%      { transform: translateY(10px) rotate(240deg); }
     }
     """
+
 
 
 # Create the app

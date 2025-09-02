@@ -33,3 +33,4 @@ htmlcov/
 .dmypy.json
 .pyre/
 .venv/
+.next/
