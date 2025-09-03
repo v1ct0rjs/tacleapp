@@ -42,14 +42,12 @@ def get_custom_css():
         position: relative;
         isolation: isolate; /* crea un stacking context propio */
         min-height: 100%;
-        /* Fondo base (grid + puntos) atado al viewport para que abarque toda la página */
+        /* Fondo base (grid) atado al viewport para que abarque toda la página */
         background:
             linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px),
-            radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-        background-size: 40px 40px, 40px 40px, 20px 20px;
-        /* Esta línea hace que el fondo se mantenga mientras haces scroll */
-        background-attachment: fixed, fixed, fixed;
+            linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
+        background-size: 40px 40px, 40px 40px;
+        background-attachment: fixed, fixed;
     }
 
     /* Overlays animados pegados al viewport (no al alto del contenedor) */
@@ -62,20 +60,53 @@ def get_custom_css():
         z-index: 0;        /* debajo del contenido */
     }
 
+    /* --- Scan lines ROJAS --- */
     .futuristic-bg::before {
-        background: linear-gradient(transparent 98%, rgba(255,255,255,0.25) 99%, transparent 100%);
+        /* banda fina roja que "escanea" verticalmente */
+        background: linear-gradient(
+            transparent 98%,
+            rgba(255, 0, 0, 0.35) 99%,
+            transparent 100%
+        );
         background-size: 100% 100px;
         animation: scan-line 6s linear infinite;
-        opacity: .7;
+        opacity: .9;
+        mix-blend-mode: screen; /* hace que la línea roja brille sobre el fondo oscuro */
     }
 
+    /* --- Glitch overlay (sin puntos girando) --- */
     .futuristic-bg::after {
+        /* ruido fino + columnas muy sutiles + bandas horizontales que se desplazan a saltos */
         background:
-            radial-gradient(circle at 20% 80%, rgba(255,255,255,0.12) 1px, transparent 2px),
-            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12) 1px, transparent 2px),
-            radial-gradient(circle at 40% 40%, rgba(255,255,255,0.08) 1px, transparent 2px);
-        background-size: 60px 60px, 80px 80px, 100px 100px;
-        animation: particles-float 15s ease-in-out infinite;
+            /* ruido fino horizontal */
+            repeating-linear-gradient(
+                0deg,
+                rgba(255,255,255,0.03) 0px,
+                rgba(255,255,255,0.03) 2px,
+                transparent 2px,
+                transparent 4px
+            ),
+            /* columnas verticales muy suaves con un toque rojo */
+            repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 180px,
+                rgba(255,0,0,0.05) 180px,
+                rgba(255,0,0,0.05) 181px
+            ),
+            /* bandas horizontales intermitentes (glitch) */
+            repeating-linear-gradient(
+                0deg,
+                transparent 0px,
+                transparent 12px,
+                rgba(255,255,255,0.04) 12px,
+                rgba(255,255,255,0.04) 13px
+            );
+        animation:
+            glitch-shift 2.2s steps(12) infinite,
+            glitch-flash 6s steps(20) infinite;
+        opacity: .55;
+        mix-blend-mode: lighten;
     }
 
     /* El contenido siempre por encima de los overlays */
@@ -84,14 +115,40 @@ def get_custom_css():
         z-index: 1;
     }
 
+    /* Animación: scan line baja en bucle */
     @keyframes scan-line {
         0%   { transform: translateY(0); }
         100% { transform: translateY(100px); }
     }
-    @keyframes particles-float {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        33%      { transform: translateY(-20px) rotate(120deg); }
-        66%      { transform: translateY(10px) rotate(240deg); }
+
+    /* Animación: pequeños "saltos" tipo glitch */
+    @keyframes glitch-shift {
+        0%   { transform: translate(0, 0); }
+        8%   { transform: translate(-2px, 1px); }
+        16%  { transform: translate(3px, -1px); }
+        24%  { transform: translate(-1px, 0); }
+        32%  { transform: translate(2px, 0.5px); }
+        40%  { transform: translate(0, 0); }
+        55%  { transform: translate(1px, -0.5px); }
+        70%  { transform: translate(-1px, 0.5px); }
+        85%  { transform: translate(2px, -1px); }
+        100% { transform: translate(0, 0); }
+    }
+
+    /* Pequeños destellos/contraste para reforzar el efecto glitch */
+    @keyframes glitch-flash {
+        0%, 45%, 55%, 100% { filter: none; }
+        46% { filter: brightness(1.05) contrast(1.15) saturate(1.05); }
+        54% { filter: brightness(1.1) contrast(1.2) saturate(1.1); }
+    }
+    /* Forzar transparencia de los contenedores de sección más comunes */
+    #music, #contact, #events {
+        background: transparent !important;
+    }
+
+    /* Si usas wrappers con clases personalizadas, añádelas aquí */
+    .section, .section-bg, .panel-full {
+        background: transparent !important;
     }
     """
 
