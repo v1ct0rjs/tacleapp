@@ -4,12 +4,11 @@ from .components import navigation, hero, music, events, contact
 
 GTAG = "G-MBP9JLGSZ5"
 
-
 def index() -> rx.Component:
     """Main page component with simplified futuristic background effects."""
     return rx.box(
         # Main content with background effects
-        navigation(),
+        #navigation(),
         hero(),
         music(),
         contact(),
@@ -149,6 +148,18 @@ def get_custom_css():
     /* Si usas wrappers con clases personalizadas, añádelas aquí */
     .section, .section-bg, .panel-full {
         background: transparent !important;
+    }
+    /* Scroll suave al pinchar en #ancla */
+    html { scroll-behavior: smooth; }
+
+    /* La cabecera mide h-16 md:h-20 => 4rem/5rem */
+    #home, #music, #contact, #events {
+        scroll-margin-top: 5rem;      /* 80px para desktop */
+    }
+    @media (max-width: 767px) {
+        #home, #music, #contact, #events {
+            scroll-margin-top: 4rem;  /* 64px para móvil */
+        }
     }
     """
 

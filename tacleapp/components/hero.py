@@ -9,15 +9,28 @@ def hero_text() -> rx.Component:
         "The purest TECHNO don't fake love nor feign freedom.",
         "TECHNO is you and me."
     ]
+    # spans = [
+    #     rx.text(
+    #         line,
+    #         class_name="stanza",
+    #         font_size={"base": "0.75rem", "sm": "0.875rem", "md": "1rem"},
+    #         style={"animation_delay": f"{i * 1.5}s"}
+    #     )
+    #     for i, line in enumerate(lines)
+    # ]
     spans = [
         rx.text(
             line,
             class_name="stanza",
             font_size={"base": "0.75rem", "sm": "0.875rem", "md": "1rem"},
-            style={"animation_delay": f"{i * 1.5}s"}
+            style={
+                "animation": "stanza-in 0.75s ease-out both",
+                "animation_delay": f"{i * 1.5}s",
+            },
         )
         for i, line in enumerate(lines)
     ]
+
     return rx.box(
         *spans,
         class_name="text-gray-300 mb-8 sm:mb-12 text-center leading-relaxed",

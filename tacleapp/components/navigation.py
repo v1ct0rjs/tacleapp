@@ -50,7 +50,7 @@ def navigation() -> rx.Component:
                 ),
                 class_name="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8"
             ),
-            class_name="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800"
+            class_name="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-gray-800"
         ),
         # Mobile Menu
         rx.cond(
