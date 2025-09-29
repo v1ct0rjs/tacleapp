@@ -9,9 +9,9 @@ def index() -> rx.Component:
     return rx.box(
         # Main content with background effects
         #navigation(),
-        hero(),
-        music(),
-        contact(),
+        rx.box(hero(), as_="section", class_name="section-tight"),
+        rx.box(music(), as_="section", class_name="section-tight"),
+        rx.box(contact(), as_="section", class_name="section-tight"),
         class_name="futuristic-bg",
         style={
             "background_color": "#000000",
