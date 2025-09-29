@@ -1,7 +1,5 @@
 import reflex as rx
 
-
-
 def hero_text() -> rx.Component:
     lines = [
         "The purest TECHNO throbs, strong and sensitive is incorruptible, brave and unique.",
@@ -9,24 +7,13 @@ def hero_text() -> rx.Component:
         "The purest TECHNO don't fake love nor feign freedom.",
         "TECHNO is you and me."
     ]
-    # spans = [
-    #     rx.text(
-    #         line,
-    #         class_name="stanza",
-    #         font_size={"base": "0.75rem", "sm": "0.875rem", "md": "1rem"},
-    #         style={"animation_delay": f"{i * 1.5}s"}
-    #     )
-    #     for i, line in enumerate(lines)
-    # ]
     spans = [
         rx.text(
             line,
+            as_="p",  # asegura bloque
             class_name="stanza",
             font_size={"base": "0.75rem", "sm": "0.875rem", "md": "1rem"},
-            style={
-                "animation": "stanza-in 0.75s ease-out both",
-                "animation_delay": f"{i * 1.5}s",
-            },
+            style={"--delay": f"{i * 1.5}s"},  # <— en vez de animation_delay
         )
         for i, line in enumerate(lines)
     ]
@@ -37,6 +24,7 @@ def hero_text() -> rx.Component:
         max_width={"base": "95%", "sm": "80%", "md": "640px"},
         margin_x="auto"
     )
+
 
 def hero() -> rx.Component:
     social_buttons_data = [

@@ -51,20 +51,18 @@ html {
 }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity:0; transform: translateY(10px); }
+  to   { opacity:1; transform: translateY(0); }
 }
 
-.stanza {
-  opacity: 0;
+.stanza{
+  opacity:0;
+  display:block;                  /* cada línea en su renglón */
   animation: fadeUp 1s ease-out forwards;
+  animation-delay: var(--delay, 0s); /* delay por línea */
+  will-change: opacity, transform;
 }
+
 
 /* Adding futuristic background effects optimized for Reflex */
 

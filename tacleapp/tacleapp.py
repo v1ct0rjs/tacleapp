@@ -184,6 +184,7 @@ app = rx.App(
             """),
         rx.html(
             '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">'),
+        rx.html('<link rel="stylesheet" href="/styles.css">'),
         rx.html(f"<style>{get_custom_css()}</style>"),
     ],
 )
