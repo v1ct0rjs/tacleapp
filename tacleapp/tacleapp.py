@@ -5,9 +5,8 @@ from .components import navigation, hero, music, events, contact
 GTAG = "G-MBP9JLGSZ5"
 
 def index() -> rx.Component:
-    """Main page component with simplified futuristic background effects."""
+    """Main page component with futuristic background effects."""
     return rx.box(
-        # Main content with background effects
         #navigation(),
         rx.box(hero(), as_="section", class_name="section-tight"),
         rx.box(music(), as_="section", class_name="section-tight"),
@@ -18,10 +17,9 @@ def index() -> rx.Component:
             "color": "#ffffff",
             "margin": "0",
             "padding": "0",
-            "width": "100%"
-        }
+            "width": "100%",
+        },
     )
-
 
 def get_custom_css():
     return """
@@ -36,16 +34,16 @@ def get_custom_css():
         background-color: #000;
     }
 
-    /* Contenedor raíz de la página */
+    /* Contenedor raíz de la página: grid con colores animables */
     .futuristic-bg {
         position: relative;
         isolation: isolate; /* crea un stacking context propio */
         min-height: 100%;
-        /* Fondo base (grid) atado al viewport para que abarque toda la página */
-        background:
-            linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
-        background-size: 40px 40px, 40px 40px;
+        background-image:
+            linear-gradient(0deg, transparent calc(var(--grid-size) - 1px), var(--grid-c1) 1px),
+            linear-gradient(90deg, transparent calc(var(--grid-size) - 1px), var(--grid-c2) 1px);
+        background-size: var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size);
+        background-position: 0 0, 0 0;
         background-attachment: fixed, fixed;
     }
 
@@ -59,23 +57,21 @@ def get_custom_css():
         z-index: 0;        /* debajo del contenido */
     }
 
-    /* --- Scan lines ROJAS --- */
+    /* --- Scan line (barrido) sutil con tinte rojo --- */
     .futuristic-bg::before {
-        /* banda fina roja que "escanea" verticalmente */
         background: linear-gradient(
             transparent 98%,
             rgba(255, 0, 0, 0.35) 99%,
             transparent 100%
         );
         background-size: 100% 100px;
-        animation: scan-line 6s linear infinite;
+        animation: scan-line 3s linear infinite; /* más rápido (antes 6s) */
         opacity: .9;
-        mix-blend-mode: screen; /* hace que la línea roja brille sobre el fondo oscuro */
+        mix-blend-mode: screen;
     }
 
-    /* --- Glitch overlay (sin puntos girando) --- */
+    /* --- Glitch overlay: bandas finas + destellos --- */
     .futuristic-bg::after {
-        /* ruido fino + columnas muy sutiles + bandas horizontales que se desplazan a saltos */
         background:
             /* ruido fino horizontal */
             repeating-linear-gradient(
@@ -85,7 +81,7 @@ def get_custom_css():
                 transparent 2px,
                 transparent 4px
             ),
-            /* columnas verticales muy suaves con un toque rojo */
+            /* columnas verticales con leve rojo */
             repeating-linear-gradient(
                 90deg,
                 transparent 0px,
@@ -134,36 +130,26 @@ def get_custom_css():
         100% { transform: translate(0, 0); }
     }
 
-    /* Pequeños destellos/contraste para reforzar el efecto glitch */
+    /* Destellos para reforzar el efecto glitch */
     @keyframes glitch-flash {
         0%, 45%, 55%, 100% { filter: none; }
         46% { filter: brightness(1.05) contrast(1.15) saturate(1.05); }
         54% { filter: brightness(1.1) contrast(1.2) saturate(1.1); }
     }
-    /* Forzar transparencia de los contenedores de sección más comunes */
-    #music, #contact, #events {
-        background: transparent !important;
-    }
 
-    /* Si usas wrappers con clases personalizadas, añádelas aquí */
-    .section, .section-bg, .panel-full {
-        background: transparent !important;
-    }
+    /* Transparentar wrappers comunes por si acaso */
+    #music, #contact, #events { background: transparent !important; }
+    .section, .section-bg, .panel-full { background: transparent !important; }
+
     /* Scroll suave al pinchar en #ancla */
     html { scroll-behavior: smooth; }
 
     /* La cabecera mide h-16 md:h-20 => 4rem/5rem */
-    #home, #music, #contact, #events {
-        scroll-margin-top: 5rem;      /* 80px para desktop */
-    }
+    #home, #music, #contact, #events { scroll-margin-top: 5rem; }
     @media (max-width: 767px) {
-        #home, #music, #contact, #events {
-            scroll-margin-top: 4rem;  /* 64px para móvil */
-        }
+        #home, #music, #contact, #events { scroll-margin-top: 4rem; }
     }
     """
-
-
 
 # Create the app
 app = rx.App(
@@ -181,10 +167,13 @@ app = rx.App(
             function gtag(){{dataLayer.push(arguments);}}
             gtag('js', new Date());
             gtag('config', '{GTAG}');
-            """),
+            """
+        ),
         rx.html(
-            '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">'),
+            '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">'
+        ),
         rx.html('<link rel="stylesheet" href="/styles.css">'),
+        # Importante: inline CSS al final para que no lo pise /styles.css
         rx.html(f"<style>{get_custom_css()}</style>"),
     ],
 )
@@ -193,5 +182,5 @@ app = rx.App(
 app.add_page(
     index,
     title="10tacle - Electronic Music Producer & DJ",
-    description="Official website of 10tacle - Electronic music producer, DJ and radio host"
+    description="Official website of 10tacle - Electronic music producer, DJ and radio host",
 )
