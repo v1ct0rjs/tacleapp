@@ -1,0 +1,232 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap");
+
+/* ── Variables para la rejilla animada ───────────────────────── */
+:root{
+  --grid-size: 40px;
+  --brand-red: #ff2a2a;             /* ajusta a tu rojo exacto */
+  --grid-c1: rgba(255 255 255 / 0.12);
+  --grid-c2: rgba(255 255 255 / 0.08);
+}
+/* Suaviza la animación de color si el navegador lo soporta */
+@property --grid-c1 { syntax: '<color>'; inherits: false; initial-value: rgba(255 255 255 / 0.12); }
+@property --grid-c2 { syntax: '<color>'; inherits: false; initial-value: rgba(255 255 255 / 0.08); }
+
+/* Pulso de color blanco tenue -> rojo de marca -> vuelve */
+@keyframes gridHue {
+  0%, 30%   { --grid-c1: rgba(255 255 255 / 0.12); --grid-c2: rgba(255 255 255 / 0.08); }
+  50%       { --grid-c1: color-mix(in srgb, var(--brand-red) 80%, white 20%);
+              --grid-c2: color-mix(in srgb, var(--brand-red) 60%, black 40%); }
+  70%,100%  { --grid-c1: rgba(255 255 255 / 0.12); --grid-c2: rgba(255 255 255 / 0.08); }
+}
+
+/* Desplazamiento lento de la rejilla */
+@keyframes gridDrift {
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 60px 0, 0 60px; }
+}
+
+/* ─── Utilidades ya existentes (respetadas) ─────────────────── */
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+@keyframes wave { 0%,100% { transform: scaleY(1);} 50% { transform: scaleY(2);} }
+.pulse-red { animation: pulse-red 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+.music-wave { animation: wave 1.5s ease-in-out infinite; }
+.gradient-text {
+  background: linear-gradient(to right, #fff, #ef4444, #fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* Scroll suave y scrollbar */
+html { scroll-behavior: smooth; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #111827; }
+::-webkit-scrollbar-thumb { background: #ef4444; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+
+/* Hero línea a línea */
+@keyframes fadeUp { from {opacity:0; transform: translateY(10px);} to {opacity:1; transform: translateY(0);} }
+.stanza{ opacity:0; display:block; animation: fadeUp 1s ease-out forwards; animation-delay: var(--delay, 0s); will-change: opacity, transform; }
+
+/* ─── Efectos extra (mantengo por si los usas) ───────────────── */
+@keyframes matrix-rain { 0% { transform: translateY(-100vh); opacity: 1;} 100% { transform: translateY(100vh); opacity: 0;} }
+.matrix-bg { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1;
+  background: linear-gradient(90deg, transparent 98%, rgba(255, 255, 255, 0.03) 100%),
+              linear-gradient(180deg, transparent 98%, rgba(255, 255, 255, 0.03) 100%);
+  background-size: 50px 50px; animation: matrix-move 20s linear infinite; }
+@keyframes matrix-move { 0% { background-position: 0 0;} 100% { background-position: 50px 50px;} }
+@keyframes scan-lines { 0% { transform: translateY(-100vh);} 100% { transform: translateY(100vh);} }
+.scan-lines { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px);
+  animation: scan-lines 3s linear infinite; }
+@keyframes glitch-bg { 0%,100% { transform: translate(0); filter: hue-rotate(0deg);}
+  10% { transform: translate(-2px, 2px); filter: hue-rotate(90deg);}
+  20% { transform: translate(-1px,-1px); filter: hue-rotate(180deg);}
+  30% { transform: translate(1px, 2px); filter: hue-rotate(270deg);}
+  40% { transform: translate(1px,-1px); filter: hue-rotate(360deg);} 50%{transform: translate(-1px,2px);}
+  60%{transform: translate(-1px,1px);} 70%{transform: translate(0,1px);} 80%{transform: translate(1,0);}
+  90%{transform: translate(1,2px);} }
+.glitch-bg { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1;
+  background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.02) 0%, transparent 50%),
+              radial-gradient(circle at 80% 50%, rgba(255,255,255,0.02) 0%, transparent 50%),
+              radial-gradient(circle at 40% 20%, rgba(255,255,255,0.01) 0%, transparent 50%);
+  animation: glitch-bg 4s infinite; }
+
+/* Partículas */
+@keyframes float-particles { 0%,100% { transform: translateY(0) rotate(0); opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 50%{transform: translateY(-20px) rotate(180deg);} }
+.particles { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; }
+.particle { position: absolute; width: 2px; height: 2px; background: rgba(255,255,255,0.3); border-radius: 50%; animation: float-particles 6s infinite ease-in-out; }
+.particle:nth-child(1){ left:10%; animation-delay:0s;} .particle:nth-child(2){ left:20%; animation-delay:1s;}
+.particle:nth-child(3){ left:30%; animation-delay:2s;} .particle:nth-child(4){ left:40%; animation-delay:3s;}
+.particle:nth-child(5){ left:50%; animation-delay:4s;} .particle:nth-child(6){ left:60%; animation-delay:5s;}
+.particle:nth-child(7){ left:70%; animation-delay:.5s;} .particle:nth-child(8){ left:80%; animation-delay:1.5s;}
+.particle:nth-child(9){ left:90%; animation-delay:2.5s;}
+
+/* Ruido digital */
+@keyframes digital-noise { 0%,100% { opacity:.02;} 50% { opacity:.05;} }
+.digital-noise { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1;
+  background-image: radial-gradient(circle at 25% 25%, white 1px, transparent 1px),
+                    radial-gradient(circle at 75% 75%, white 1px, transparent 1px),
+                    radial-gradient(circle at 50% 50%, white 1px, transparent 1px);
+  background-size: 100px 100px, 150px 150px, 200px 200px; animation: digital-noise 2s infinite;}
+
+/* Líneas de conexión */
+@keyframes connection-lines { 0%{transform: scaleX(0); opacity:0;} 50%{transform: scaleX(1); opacity:1;} 100%{transform: scaleX(0); opacity:0;} }
+.connection-lines { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; }
+.connection-line { position: absolute; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); animation: connection-lines 3s infinite ease-in-out; }
+.connection-line:nth-child(1){ top:20%; width:200px; left:10%; animation-delay:0s;}
+.connection-line:nth-child(2){ top:40%; width:150px; right:10%; animation-delay:1s;}
+.connection-line:nth-child(3){ top:60%; width:300px; left:30%; animation-delay:2s;}
+.connection-line:nth-child(4){ top:80%; width:100px; right:20%; animation-delay:1.5s;}
+
+/* Contenedor principal */
+.futuristic-bg {
+  position: relative;
+  min-height: 100vh;
+  background-color: #000000;          /* IMPORTANTE: evitar shorthand para no borrar el grid */
+  overflow: hidden;
+  /* ralentizamos la transición: color 16s, drift 80s */
+  animation: gridHue 16s ease-in-out infinite, gridDrift 80s linear infinite;
+  will-change: background-position;
+}
+
+/* Glitch de texto (opcional para títulos) */
+@keyframes text-glitch { 0%,100% { text-shadow: 0 0 0 transparent;}
+  10%{ text-shadow:-2px 0 0 rgba(255,255,255,0.3), 2px 0 0 rgba(255,255,255,0.1);}
+  20%{ text-shadow: 2px 0 0 rgba(255,255,255,0.3),-2px 0 0 rgba(255,255,255,0.1);} 30%{ text-shadow:0 0 0 transparent;} }
+.text-glitch { animation: text-glitch 3s infinite; }
+
+/* Optimiza */
+.matrix-bg, .scan-lines, .glitch-bg, .digital-noise, .particles, .connection-lines { will-change: transform, opacity; }
+
+/* Espaciado vertical ultra-compacto para secciones */
+.section-tight { padding-block: 0.5rem; }
+@media (min-width:640px){ .section-tight { padding-block: 0.75rem; } }
+@media (min-width:1024px){ .section-tight { padding-block: 1rem; } }
+
+/* ===== LEFT GHOST CARD NAV (elegante, fija, acorde a la web) ===== */
+:root{
+  --rail-w: 180px;               /* ancho de la caja */
+  --rail-gap: 1rem;              /* separación de la caja al borde */
+}
+
+/* El contenido deja un canal a la izquierda para que no se meta bajo la caja */
+.with-left-rail{
+  padding-left: calc(var(--rail-w) + var(--rail-gap));
+}
+
+/* Rail fija; transparente y sin bloquear el scroll fuera de la caja */
+.left-rail{
+  position: fixed;
+  top: var(--rail-gap);
+  bottom: var(--rail-gap);
+  left: var(--rail-gap);
+  width: var(--rail-w);
+  display: flex;
+  align-items: center;
+  pointer-events: none;          /* ← el scroll pasa “a través” */
+  z-index: 80;
+  background: transparent;
+}
+
+/* La tarjeta (caja) sí capta clicks; estilo “glass/ghost” muy sutil */
+.left-rail-card{
+  pointer-events: auto;
+  width: 100%;
+  padding: 1rem .9rem;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(0,0,0,.36), rgba(0,0,0,.22));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,42,42,.18),   /* filo rojo muy fino */
+    0 6px 24px rgba(0,0,0,.35);
+}
+
+/* Título (coherente con tu marca) */
+.left-rail-title{
+  font-family: "Orbitron", system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: .12em;
+  font-size: .95rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: .6rem;
+  text-shadow: 0 0 8px rgba(255,255,255,.18);
+}
+
+/* Pila de enlaces vertical */
+.left-rail-stack{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: .55rem;           /* ← espacio entre links */
+}
+
+/* Enlaces: blancos, sin aspecto “típico”; rojo de marca al hover */
+.left-rail-link{
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  font-family: "Orbitron", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: .08em;
+  font-size: .9rem;
+  color: #ffffff;                              /* blanco por defecto */
+  padding: .45rem .5rem;
+  border-radius: 10px;
+  transition: color .18s ease, background-color .18s ease, text-shadow .18s ease, transform .12s ease;
+  text-shadow: 0 0 6px rgba(255,255,255,.15);
+  background-color: transparent;               /* sin “pill” de base */
+}
+.left-rail-link:hover,
+.left-rail-link:focus{
+  color: var(--brand-red);                     /* rojo de la web al hover */
+  background-color: rgba(255,42,42,.07);       /* leve tinte rojo */
+  text-shadow: 0 0 10px rgba(255,42,42,.45), 0 0 12px rgba(255,255,255,.18);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* Sutileza: barra roja lateral “latente” que aparece al hover */
+.left-rail-link{ position: relative; }
+.left-rail-link::before{
+  content:"";
+  position:absolute; left:6px; top:20%; bottom:20%;
+  width:2px; border-radius: 2px;
+  background: linear-gradient(180deg, transparent, var(--brand-red), transparent);
+  opacity: 0; transform: scaleY(.6);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.left-rail-link:hover::before,
+.left-rail-link:focus::before{ opacity:.9; transform: scaleY(1); }
+
+/* Responsive fino: caja más estrecha en móviles */
+@media (max-width: 640px){
+  :root{ --rail-w: 140px; }
+  .left-rail-title{ font-size: .9rem; }
+  .left-rail-link{ font-size: .85rem; }
+}
+
