@@ -11,7 +11,7 @@ def hero_text() -> rx.Component:
         rx.text(
             line,
             as_="p",  # asegura bloque
-            class_name="stanza",
+            class_name="stanza whitespace-pre-line leading-relaxed break-words [word-break:break-word] [hyphens:auto]",
             font_size={"base": "0.75rem", "sm": "0.875rem", "md": "1rem"},
             style={"--delay": f"{i * 1.5}s"},  # <— en vez de animation_delay
         )
@@ -71,13 +71,13 @@ def hero() -> rx.Component:
                     spacing={"base": "3", "sm": "4"},
                     justify="center",
                     wrap="wrap",
-                    class_name="mt-4 sm:mt-6"
+                    class_name="mt-4 sm:mt-6 w-full"
                 ),
                 direction="column",
                 align="center",
                 class_name="text-center"
             ),
-            class_name="relative z-10 max-w-5xl mx-auto px-3 sm:px-4"
+            class_name="relative z-10 w-full max-w-screen-lg mx-auto px-4 sm:px-6 md:px-8 break-words [word-break:break-word] [hyphens:auto] [text-wrap:balance]"
         ),
-        class_name="relative min-h-screen flex items-center justify-center pt-24 pb-12"
+        class_name="relative min-h-[80svh] flex items-center justify-center pt-20 pb-12 overflow-x-hidden"
     )
