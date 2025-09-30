@@ -34,3 +34,5 @@ htmlcov/
 .pyre/
 .venv/
 .next/
+backend.zip
+frontend.zip
