@@ -21,23 +21,44 @@ def index() -> rx.Component:
         },
     )
 
+
 def get_custom_css():
     return """
-    /* Reset básico */
+    /* Propiedades animables para los colores de la rejilla */
+    @property --grid-c1 {
+      syntax: '<color>';
+      inherits: true;
+      initial-value: rgba(255, 0, 0, 0.12);
+    }
+    @property --grid-c2 {
+      syntax: '<color>';
+      inherits: true;
+      initial-value: rgba(255, 255, 255, 0.08);
+    }
+
+    :root {
+      --grid-size: 128px;
+      --grid-cycle: 25s; /* intervalo entre transiciones (antes 6s) */
+      --grid-c1: rgba(255, 0, 0, 0.12);
+      --grid-c2: rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 767px) {
+      :root { --grid-size: 12px; }
+    }
+
     * { margin:0; padding:0; box-sizing:border-box; }
 
-    /* 1 sola zona de scroll y sin desplazamiento horizontal */
     html, body, #__next {
         height: 100%;
         min-height: 100%;
-        overflow-x: clip; /* evita doble barra horizontal por sombras/transform */
+        overflow-x: clip;
         background-color: #000;
     }
 
-    /* Contenedor raíz de la página: grid con colores animables */
     .futuristic-bg {
         position: relative;
-        isolation: isolate; /* crea un stacking context propio */
+        isolation: isolate;
         min-height: 100%;
         background-image:
             linear-gradient(0deg, transparent calc(var(--grid-size) - 1px), var(--grid-c1) 1px),
@@ -45,19 +66,22 @@ def get_custom_css():
         background-size: var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size);
         background-position: 0 0, 0 0;
         background-attachment: fixed, fixed;
+
+        /* Jitter + transición lenta con pico rápido cada var(--grid-cycle) */
+        animation:
+          grid-jitter 0.8s steps(6, end) infinite,
+          grid-slow-spike-color var(--grid-cycle) linear infinite;
     }
 
-    /* Overlays animados pegados al viewport (no al alto del contenedor) */
     .futuristic-bg::before,
     .futuristic-bg::after {
         content: "";
-        position: fixed;   /* clave: fijo al viewport */
-        inset: 0;          /* top/right/bottom/left: 0 */
+        position: fixed;
+        inset: 0;
         pointer-events: none;
-        z-index: 0;        /* debajo del contenido */
+        z-index: 0;
     }
 
-    /* --- Scan line (barrido) sutil con tinte rojo --- */
     .futuristic-bg::before {
         background: linear-gradient(
             transparent 98%,
@@ -65,15 +89,13 @@ def get_custom_css():
             transparent 100%
         );
         background-size: 100% 100px;
-        animation: scan-line 3s linear infinite; /* más rápido (antes 6s) */
+        animation: scan-line 1.2s steps(48, end) infinite;
         opacity: .9;
         mix-blend-mode: screen;
     }
 
-    /* --- Glitch overlay: bandas finas + destellos --- */
     .futuristic-bg::after {
         background:
-            /* ruido fino horizontal */
             repeating-linear-gradient(
                 0deg,
                 rgba(255,255,255,0.03) 0px,
@@ -81,7 +103,6 @@ def get_custom_css():
                 transparent 2px,
                 transparent 4px
             ),
-            /* columnas verticales con leve rojo */
             repeating-linear-gradient(
                 90deg,
                 transparent 0px,
@@ -89,7 +110,6 @@ def get_custom_css():
                 rgba(255,0,0,0.05) 180px,
                 rgba(255,0,0,0.05) 181px
             ),
-            /* bandas horizontales intermitentes (glitch) */
             repeating-linear-gradient(
                 0deg,
                 transparent 0px,
@@ -98,25 +118,23 @@ def get_custom_css():
                 rgba(255,255,255,0.04) 13px
             );
         animation:
-            glitch-shift 2.2s steps(12) infinite,
-            glitch-flash 6s steps(20) infinite;
+            glitch-shift 1.1s steps(18, end) infinite,
+            strobe-electric 1.6s steps(30, end) infinite;
         opacity: .55;
         mix-blend-mode: lighten;
     }
 
-    /* El contenido siempre por encima de los overlays */
     .futuristic-bg > * {
         position: relative;
         z-index: 1;
     }
 
-    /* Animación: scan line baja en bucle */
+    /* --- Animaciones --- */
     @keyframes scan-line {
         0%   { transform: translateY(0); }
         100% { transform: translateY(100px); }
     }
 
-    /* Animación: pequeños "saltos" tipo glitch */
     @keyframes glitch-shift {
         0%   { transform: translate(0, 0); }
         8%   { transform: translate(-2px, 1px); }
@@ -130,26 +148,83 @@ def get_custom_css():
         100% { transform: translate(0, 0); }
     }
 
-    /* Destellos para reforzar el efecto glitch */
-    @keyframes glitch-flash {
-        0%, 45%, 55%, 100% { filter: none; }
-        46% { filter: brightness(1.05) contrast(1.15) saturate(1.05); }
-        54% { filter: brightness(1.1) contrast(1.2) saturate(1.1); }
+    @keyframes strobe-electric {
+        0%, 100% { filter: none; opacity: .45; }
+        8%, 23%, 37%, 51%, 66%, 81%, 93% {
+            filter: none; opacity: .45;
+        }
+        9%, 24%, 38%, 52%, 67%, 82%, 94% {
+            filter: brightness(1.65) contrast(1.35) saturate(1.05);
+            opacity: .9;
+        }
     }
 
-    /* Transparentar wrappers comunes por si acaso */
+    @keyframes grid-jitter {
+        0%   { background-position: 0 0, 0 0; }
+        20%  { background-position: -1px 0, 0 -1px; }
+        40%  { background-position: 0 0, 0 0; }
+        60%  { background-position: 1px 0, 0 1px; }
+        80%  { background-position: 0 0, 0 0; }
+        100% { background-position: -1px -1px, 1px 1px; }
+    }
+
+    /* Transición lenta -> pico rápido ~86% y caída breve; ciclo var(--grid-cycle) */
+    @keyframes grid-slow-spike-color {
+        0% {
+            --grid-c1: rgba(255, 0, 0, 0.12);
+            --grid-c2: rgba(255, 255, 255, 0.08);
+        }
+        35% {
+            --grid-c1: rgba(255, 20, 20, 0.14);
+            --grid-c2: rgba(255, 0, 0, 0.10);
+        }
+        55% {
+            --grid-c1: rgba(255, 24, 24, 0.18);
+            --grid-c2: rgba(255, 0, 0, 0.14);
+        }
+        70% {
+            --grid-c1: rgba(255, 28, 28, 0.22);
+            --grid-c2: rgba(255, 0, 0, 0.18);
+        }
+        78% {
+            --grid-c1: rgba(255, 30, 30, 0.28);
+            --grid-c2: rgba(255, 0, 0, 0.22);
+        }
+        82% {
+            --grid-c1: rgba(255, 34, 34, 0.38);
+            --grid-c2: rgba(255, 0, 0, 0.28);
+        }
+        86% {
+            --grid-c1: rgba(255, 40, 40, 0.88); /* pico rápido */
+            --grid-c2: rgba(255, 0, 0, 0.46);
+        }
+        88% {
+            --grid-c1: rgba(255, 36, 36, 0.52); /* salida rápida */
+            --grid-c2: rgba(255, 0, 0, 0.30);
+        }
+        92% {
+            --grid-c1: rgba(255, 30, 30, 0.28);
+            --grid-c2: rgba(255, 0, 0, 0.20);
+        }
+        96%,
+        100% {
+            --grid-c1: rgba(255, 0, 0, 0.12);
+            --grid-c2: rgba(255, 255, 255, 0.08);
+        }
+    }
+
     #music, #contact, #events { background: transparent !important; }
     .section, .section-bg, .panel-full { background: transparent !important; }
 
-    /* Scroll suave al pinchar en #ancla */
     html { scroll-behavior: smooth; }
-
-    /* La cabecera mide h-16 md:h-20 => 4rem/5rem */
     #home, #music, #contact, #events { scroll-margin-top: 5rem; }
     @media (max-width: 767px) {
         #home, #music, #contact, #events { scroll-margin-top: 4rem; }
     }
     """
+
+
+
 
 # Create the app
 app = rx.App(
