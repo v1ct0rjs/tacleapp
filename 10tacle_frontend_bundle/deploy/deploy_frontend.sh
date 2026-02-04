@@ -16,7 +16,10 @@ rm -rf "$SCRIPT_DIR/reflex-frontend"
 mkdir -p "$SCRIPT_DIR/reflex-frontend"
 unzip -q "$ZIP_PATH" -d "$SCRIPT_DIR/reflex-frontend"
 
-# Arranca o recarga el contenedor
+# Para y borra el contenedor/stack anterior
+docker compose -f "$ROOT_DIR/docker-compose.yml" down --remove-orphans
+
+# Arranca el contenedor con el frontend actualizado
 docker compose -f "$ROOT_DIR/docker-compose.yml" up -d
 
 echo "✅ Frontend desplegado. Nginx escuchando en :3000 dentro de la red 'proxy' como alias 10tacle_app."
