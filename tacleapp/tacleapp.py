@@ -2,8 +2,6 @@ import reflex as rx
 from .state import State
 from .components import navigation, hero, about, music, events, contact
 
-GTAG = "G-MBP9JLGSZ5"
-
 def index() -> rx.Component:
   """Main page component."""
   return rx.box(
@@ -25,16 +23,6 @@ app = rx.App(
         "background_color": "#000000",
         "color": "#ffffff",
     },
-head_components=[
-        rx.script(src=f"https://www.googletagmanager.com/gtag/js?id={GTAG}"),
-        rx.script(
-            f"""
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){{dataLayer.push(arguments);}}
-            gtag('js', new Date());
-            gtag('config', '{GTAG}');
-            """),
-    ],
 )
 
 # Add the main page

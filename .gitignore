@@ -33,3 +33,7 @@ htmlcov/
 .dmypy.json
 .pyre/
 .venv/
+.next/
+backend.zip
+10tacle_frontend_bundle/frontend.zip
+frontend.zip
