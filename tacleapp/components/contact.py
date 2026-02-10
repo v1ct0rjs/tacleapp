@@ -70,6 +70,15 @@ def contact() -> rx.Component:
                             margin_top="1em",
                         )
                     ),
+                    rx.cond(
+                        State.form_error != "",
+                        rx.callout(
+                            State.form_error,
+                            icon="triangle-alert",
+                            color_scheme="red",
+                            margin_top="1em",
+                        )
+                    ),
                     class_name="bg-gray-900/50 rounded-lg p-8 border border-gray-800"
                 ),
 
