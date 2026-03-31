@@ -234,6 +234,10 @@ app = rx.App(
         "background_color": "#000000",
         "color": "#ffffff",
     },
+    stylesheets=[
+        "https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap",
+        "/styles.css",
+    ],
     head_components=[
         rx.script(src=f"https://www.googletagmanager.com/gtag/js?id={GTAG}"),
         rx.script(
@@ -244,12 +248,6 @@ app = rx.App(
             gtag('config', '{GTAG}');
             """
         ),
-        rx.html(
-            '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">'
-        ),
-        rx.html('<link rel="stylesheet" href="/styles.css">'),
-        # Importante: inline CSS al final para que no lo pise /styles.css
-        rx.html(f"<style>{get_custom_css()}</style>"),
     ],
 )
 

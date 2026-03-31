@@ -2,21 +2,63 @@
 
 /* ── Variables para la rejilla animada ───────────────────────── */
 :root{
-  --grid-size: 40px;
+  --grid-size: 128px;
+  --grid-cycle: 34s;
   --brand-red: #ff2a2a;             /* ajusta a tu rojo exacto */
-  --grid-c1: rgba(255 255 255 / 0.12);
-  --grid-c2: rgba(255 255 255 / 0.08);
+  --grid-c1: rgba(255, 0, 0, 0.12);
+  --grid-c2: rgba(255, 255, 255, 0.08);
 }
 /* Suaviza la animación de color si el navegador lo soporta */
-@property --grid-c1 { syntax: '<color>'; inherits: false; initial-value: rgba(255 255 255 / 0.12); }
-@property --grid-c2 { syntax: '<color>'; inherits: false; initial-value: rgba(255 255 255 / 0.08); }
+@property --grid-c1 { syntax: '<color>'; inherits: true; initial-value: rgba(255, 0, 0, 0.12); }
+@property --grid-c2 { syntax: '<color>'; inherits: true; initial-value: rgba(255, 255, 255, 0.08); }
 
-/* Pulso de color blanco tenue -> rojo de marca -> vuelve */
-@keyframes gridHue {
-  0%, 30%   { --grid-c1: rgba(255 255 255 / 0.12); --grid-c2: rgba(255 255 255 / 0.08); }
-  50%       { --grid-c1: color-mix(in srgb, var(--brand-red) 80%, white 20%);
-              --grid-c2: color-mix(in srgb, var(--brand-red) 60%, black 40%); }
-  70%,100%  { --grid-c1: rgba(255 255 255 / 0.12); --grid-c2: rgba(255 255 255 / 0.08); }
+@media (max-width: 767px) {
+  :root { --grid-size: 12px; }
+}
+
+/* Transición lenta larga -> pico rápido visible -> caída breve */
+@keyframes grid-slow-spike-color {
+  0% {
+      --grid-c1: rgba(255, 0, 0, 0.12);
+      --grid-c2: rgba(255, 255, 255, 0.08);
+  }
+  48% {
+      --grid-c1: rgba(255, 20, 20, 0.14);
+      --grid-c2: rgba(255, 0, 0, 0.10);
+  }
+  66% {
+      --grid-c1: rgba(255, 24, 24, 0.18);
+      --grid-c2: rgba(255, 0, 0, 0.14);
+  }
+  79% {
+      --grid-c1: rgba(255, 28, 28, 0.22);
+      --grid-c2: rgba(255, 0, 0, 0.18);
+  }
+  86% {
+      --grid-c1: rgba(255, 30, 30, 0.28);
+      --grid-c2: rgba(255, 0, 0, 0.22);
+  }
+  90% {
+      --grid-c1: rgba(255, 34, 34, 0.38);
+      --grid-c2: rgba(255, 0, 0, 0.28);
+  }
+  93% {
+      --grid-c1: rgba(255, 44, 44, 0.92);
+      --grid-c2: rgba(255, 0, 0, 0.52);
+  }
+  94% {
+      --grid-c1: rgba(255, 38, 38, 0.56);
+      --grid-c2: rgba(255, 0, 0, 0.32);
+  }
+  96% {
+      --grid-c1: rgba(255, 30, 30, 0.28);
+      --grid-c2: rgba(255, 0, 0, 0.20);
+  }
+  98%,
+  100% {
+      --grid-c1: rgba(255, 0, 0, 0.12);
+      --grid-c2: rgba(255, 255, 255, 0.08);
+  }
 }
 
 /* Desplazamiento lento de la rejilla */
@@ -47,7 +89,7 @@ html { scroll-behavior: smooth; }
 
 /* Hero línea a línea */
 @keyframes fadeUp { from {opacity:0; transform: translateY(10px);} to {opacity:1; transform: translateY(0);} }
-.stanza{ opacity:0; display:block; animation: fadeUp 1s ease-out forwards; animation-delay: var(--delay, 0s); will-change: opacity, transform; }
+.stanza{ --delay: 0s; opacity:0; display:block; animation: fadeUp 1s ease-out forwards; animation-delay: var(--delay, 0s); will-change: opacity, transform; }
 
 /* ─── Efectos extra (mantengo por si los usas) ───────────────── */
 @keyframes matrix-rain { 0% { transform: translateY(-100vh); opacity: 1;} 100% { transform: translateY(100vh); opacity: 0;} }
@@ -65,8 +107,8 @@ html { scroll-behavior: smooth; }
   20% { transform: translate(-1px,-1px); filter: hue-rotate(180deg);}
   30% { transform: translate(1px, 2px); filter: hue-rotate(270deg);}
   40% { transform: translate(1px,-1px); filter: hue-rotate(360deg);} 50%{transform: translate(-1px,2px);}
-  60%{transform: translate(-1px,1px);} 70%{transform: translate(0,1px);} 80%{transform: translate(1,0);}
-  90%{transform: translate(1,2px);} }
+  60%{transform: translate(-1px,1px);} 70%{transform: translate(0,1px);} 80%{transform: translate(1px,0);}
+  90%{transform: translate(1px,2px);} }
 .glitch-bg { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1;
   background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.02) 0%, transparent 50%),
               radial-gradient(circle at 80% 50%, rgba(255,255,255,0.02) 0%, transparent 50%),
@@ -103,12 +145,86 @@ html { scroll-behavior: smooth; }
 /* Contenedor principal */
 .futuristic-bg {
   position: relative;
+  isolation: isolate;
   min-height: 100vh;
-  background-color: #000000;          /* IMPORTANTE: evitar shorthand para no borrar el grid */
-  overflow: hidden;
-  /* ralentizamos la transición: color 16s, drift 80s */
-  animation: gridHue 16s ease-in-out infinite, gridDrift 80s linear infinite;
+  background-color: #000000;
+  background-image:
+      linear-gradient(0deg, transparent calc(var(--grid-size) - 1px), var(--grid-c1) 1px),
+      linear-gradient(90deg, transparent calc(var(--grid-size) - 1px), var(--grid-c2) 1px);
+  background-size: var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size);
+  background-position: 0 0, 0 0;
+  background-attachment: fixed, fixed;
+  overflow-x: hidden;
+  overflow-y: visible;
+  animation:
+    grid-jitter 0.8s steps(6, end) infinite,
+    grid-slow-spike-color var(--grid-cycle) linear infinite;
   will-change: background-position;
+}
+
+.futuristic-bg::before,
+.futuristic-bg::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.futuristic-bg::before {
+  background: linear-gradient(
+      transparent 98%,
+      rgba(255, 0, 0, 0.35) 99%,
+      transparent 100%
+  );
+  background-size: 100% 100px;
+  animation: scan-line 1.2s steps(48, end) infinite;
+  opacity: .9;
+  mix-blend-mode: screen;
+}
+
+.futuristic-bg::after {
+  background:
+      repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.03) 0px,
+          rgba(255,255,255,0.03) 2px,
+          transparent 2px,
+          transparent 4px
+      ),
+      repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          transparent 180px,
+          rgba(255,0,0,0.05) 180px,
+          rgba(255,0,0,0.05) 181px
+      ),
+      repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          transparent 12px,
+          rgba(255,255,255,0.04) 12px,
+          rgba(255,255,255,0.04) 13px
+      );
+  animation:
+      glitch-shift 1.1s steps(18, end) infinite,
+      strobe-electric 1.6s steps(30, end) infinite;
+  opacity: .55;
+  mix-blend-mode: lighten;
+}
+
+.futuristic-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes grid-jitter {
+  0%   { background-position: 0 0, 0 0; }
+  20%  { background-position: -1px 0, 0 -1px; }
+  40%  { background-position: 0 0, 0 0; }
+  60%  { background-position: 1px 0, 0 1px; }
+  80%  { background-position: 0 0, 0 0; }
+  100% { background-position: -1px -1px, 1px 1px; }
 }
 
 /* Glitch de texto (opcional para títulos) */
@@ -229,4 +345,7 @@ html { scroll-behavior: smooth; }
   .left-rail-title{ font-size: .9rem; }
   .left-rail-link{ font-size: .85rem; }
 }
+
+#music, #contact, #events { background: transparent !important; }
+.section, .section-bg, .panel-full { background: transparent !important; }
 

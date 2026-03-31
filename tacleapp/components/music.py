@@ -7,7 +7,7 @@ def music() -> rx.Component:
     """Music section con Tracks de Spotify y Sessions de SoundCloud."""
 
     spotify_playlist = [
-        """<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5uGYoNGFfm9jB1Mm9PHHaj?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>"""
+        """<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5uGYoNGFfm9jB1Mm9PHHaj?utm_source=generator" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy"></iframe>"""
     ]
 
     soundcloud_embed_codes = [
@@ -31,10 +31,10 @@ def music() -> rx.Component:
     ]
 
     mixcloud_embed_codes = [
-        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fdivine-techno-mix-2%2F" frameborder="0" allow="encrypted-media; fullscreen; autoplay; idle-detection; speaker-selection; web-share;" ></iframe>""",
-        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fdivine-techno-mix%2F" frameborder="0" allow="encrypted-media; fullscreen; autoplay; idle-detection; speaker-selection; web-share;" ></iframe>""",
-        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fanother-techno-monday-in-electro-space%2F" frameborder="0" allow="encrypted-media; fullscreen; autoplay; idle-detection; speaker-selection; web-share;" ></iframe>""",
-        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Flive-es-techno-sessions%2F" frameborder="0" allow="encrypted-media; fullscreen; autoplay; idle-detection; speaker-selection; web-share;" ></iframe>"""
+        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fdivine-techno-mix-2%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
+        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fdivine-techno-mix%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
+        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fanother-techno-monday-in-electro-space%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
+        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Flive-es-techno-sessions%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>"""
     ]
 
     return rx.box(
