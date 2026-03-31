@@ -33,14 +33,14 @@ def get_custom_css():
     @property --grid-c2 {
       syntax: '<color>';
       inherits: true;
-      initial-value: rgba(255, 255, 255, 0.08);
+      initial-value: rgba(255, 0, 0, 0.08);
     }
 
     :root {
       --grid-size: 128px;
       --grid-cycle: 25s; /* intervalo entre transiciones (antes 6s) */
       --grid-c1: rgba(255, 0, 0, 0.12);
-      --grid-c2: rgba(255, 255, 255, 0.08);
+      --grid-c2: rgba(255, 0, 0, 0.08);
     }
 
     @media (max-width: 767px) {
@@ -73,7 +73,6 @@ def get_custom_css():
           grid-slow-spike-color var(--grid-cycle) linear infinite;
     }
 
-    .futuristic-bg::before,
     .futuristic-bg::after {
         content: "";
         position: fixed;
@@ -82,27 +81,8 @@ def get_custom_css():
         z-index: 0;
     }
 
-    .futuristic-bg::before {
-        background: linear-gradient(
-            transparent 98%,
-            rgba(255, 0, 0, 0.35) 99%,
-            transparent 100%
-        );
-        background-size: 100% 100px;
-        animation: scan-line 1.2s steps(48, end) infinite;
-        opacity: .9;
-        mix-blend-mode: screen;
-    }
-
     .futuristic-bg::after {
         background:
-            repeating-linear-gradient(
-                0deg,
-                rgba(255,255,255,0.03) 0px,
-                rgba(255,255,255,0.03) 2px,
-                transparent 2px,
-                transparent 4px
-            ),
             repeating-linear-gradient(
                 90deg,
                 transparent 0px,
@@ -114,13 +94,11 @@ def get_custom_css():
                 0deg,
                 transparent 0px,
                 transparent 12px,
-                rgba(255,255,255,0.04) 12px,
-                rgba(255,255,255,0.04) 13px
+                rgba(255,0,0,0.03) 12px,
+                rgba(255,0,0,0.03) 13px
             );
-        animation:
-            glitch-shift 1.1s steps(18, end) infinite,
-            strobe-electric 1.6s steps(30, end) infinite;
-        opacity: .55;
+        animation: none;
+        opacity: .22;
         mix-blend-mode: lighten;
     }
 
@@ -130,34 +108,6 @@ def get_custom_css():
     }
 
     /* --- Animaciones --- */
-    @keyframes scan-line {
-        0%   { transform: translateY(0); }
-        100% { transform: translateY(100px); }
-    }
-
-    @keyframes glitch-shift {
-        0%   { transform: translate(0, 0); }
-        8%   { transform: translate(-2px, 1px); }
-        16%  { transform: translate(3px, -1px); }
-        24%  { transform: translate(-1px, 0); }
-        32%  { transform: translate(2px, 0.5px); }
-        40%  { transform: translate(0, 0); }
-        55%  { transform: translate(1px, -0.5px); }
-        70%  { transform: translate(-1px, 0.5px); }
-        85%  { transform: translate(2px, -1px); }
-        100% { transform: translate(0, 0); }
-    }
-
-    @keyframes strobe-electric {
-        0%, 100% { filter: none; opacity: .45; }
-        8%, 23%, 37%, 51%, 66%, 81%, 93% {
-            filter: none; opacity: .45;
-        }
-        9%, 24%, 38%, 52%, 67%, 82%, 94% {
-            filter: brightness(1.65) contrast(1.35) saturate(1.05);
-            opacity: .9;
-        }
-    }
 
     @keyframes grid-jitter {
         0%   { background-position: 0 0, 0 0; }
@@ -172,44 +122,44 @@ def get_custom_css():
     @keyframes grid-slow-spike-color {
         0% {
             --grid-c1: rgba(255, 0, 0, 0.12);
-            --grid-c2: rgba(255, 255, 255, 0.08);
+            --grid-c2: rgba(255, 0, 0, 0.08);
         }
         35% {
-            --grid-c1: rgba(255, 20, 20, 0.14);
+            --grid-c1: rgba(255, 16, 16, 0.14);
             --grid-c2: rgba(255, 0, 0, 0.10);
         }
         55% {
-            --grid-c1: rgba(255, 24, 24, 0.18);
-            --grid-c2: rgba(255, 0, 0, 0.14);
+            --grid-c1: rgba(255, 18, 18, 0.16);
+            --grid-c2: rgba(255, 0, 0, 0.12);
         }
         70% {
-            --grid-c1: rgba(255, 28, 28, 0.22);
-            --grid-c2: rgba(255, 0, 0, 0.18);
+            --grid-c1: rgba(255, 20, 20, 0.18);
+            --grid-c2: rgba(255, 0, 0, 0.14);
         }
         78% {
-            --grid-c1: rgba(255, 30, 30, 0.28);
-            --grid-c2: rgba(255, 0, 0, 0.22);
+            --grid-c1: rgba(255, 22, 22, 0.20);
+            --grid-c2: rgba(255, 0, 0, 0.15);
         }
         82% {
-            --grid-c1: rgba(255, 34, 34, 0.38);
-            --grid-c2: rgba(255, 0, 0, 0.28);
+            --grid-c1: rgba(255, 24, 24, 0.22);
+            --grid-c2: rgba(255, 0, 0, 0.16);
         }
         86% {
-            --grid-c1: rgba(255, 40, 40, 0.88); /* pico rápido */
-            --grid-c2: rgba(255, 0, 0, 0.46);
+            --grid-c1: rgba(255, 26, 26, 0.24);
+            --grid-c2: rgba(255, 0, 0, 0.17);
         }
         88% {
-            --grid-c1: rgba(255, 36, 36, 0.52); /* salida rápida */
-            --grid-c2: rgba(255, 0, 0, 0.30);
+            --grid-c1: rgba(255, 24, 24, 0.22);
+            --grid-c2: rgba(255, 0, 0, 0.16);
         }
         92% {
-            --grid-c1: rgba(255, 30, 30, 0.28);
-            --grid-c2: rgba(255, 0, 0, 0.20);
+            --grid-c1: rgba(255, 22, 22, 0.20);
+            --grid-c2: rgba(255, 0, 0, 0.14);
         }
         96%,
         100% {
             --grid-c1: rgba(255, 0, 0, 0.12);
-            --grid-c2: rgba(255, 255, 255, 0.08);
+            --grid-c2: rgba(255, 0, 0, 0.08);
         }
     }
 
