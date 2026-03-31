@@ -1,16 +1,27 @@
+import re
 import reflex as rx
 from .utils import section_header
 from ..state import State
 
 
+def _set_iframe_loading(embed_code: str, mode: str) -> str:
+    """Keep iframe src untouched and only normalize the loading hint."""
+    if "<iframe" not in embed_code:
+        return embed_code
+    if re.search(r'\sloading="(lazy|eager)"', embed_code):
+        return re.sub(r'\sloading="(lazy|eager)"', f' loading="{mode}"', embed_code, count=1)
+    return embed_code.replace("<iframe ", f'<iframe loading="{mode}" ', 1)
+
+
 def music() -> rx.Component:
     """Music section con Tracks de Spotify y Sessions de SoundCloud."""
 
-    spotify_playlist = [
+    spotify_playlist_raw = [
         """<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5uGYoNGFfm9jB1Mm9PHHaj?utm_source=generator" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy"></iframe>"""
     ]
+    spotify_playlist = [_set_iframe_loading(code, "lazy") for code in spotify_playlist_raw]
 
-    soundcloud_embed_codes = [
+    soundcloud_embed_codes_raw = [
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1512589402&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2239207454&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1972991863&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
@@ -24,18 +35,22 @@ def music() -> rx.Component:
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1916937122&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2007493087&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
     ]
-    podcast_embed_codes = [
+    soundcloud_embed_codes = [_set_iframe_loading(code, "eager") for code in soundcloud_embed_codes_raw]
+
+    podcast_embed_codes_raw = [
         """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1521291607&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1470611422&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1470612097&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
     ]
+    podcast_embed_codes = [_set_iframe_loading(code, "eager") for code in podcast_embed_codes_raw]
 
-    mixcloud_embed_codes = [
+    mixcloud_embed_codes_raw = [
         """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fdivine-techno-mix-2%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
         """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fdivine-techno-mix%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
         """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fanother-techno-monday-in-electro-space%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
         """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Flive-es-techno-sessions%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>"""
     ]
+    mixcloud_embed_codes = [_set_iframe_loading(code, "lazy") for code in mixcloud_embed_codes_raw]
 
     return rx.box(
         rx.container(
@@ -54,7 +69,7 @@ def music() -> rx.Component:
                         *[
                             rx.box(
                                 rx.html(embed_code),
-                                class_name="w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
+                                class_name="embed-shell w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
                                 min_height="166px"
                             )
                             for embed_code in spotify_playlist
@@ -101,7 +116,7 @@ def music() -> rx.Component:
                         *[
                             rx.box(
                                 rx.html(embed_code),
-                                class_name="w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
+                                class_name="embed-shell w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
                                 min_height="166px"
                             )
                             for embed_code in soundcloud_embed_codes
@@ -137,7 +152,7 @@ def music() -> rx.Component:
                         *[
                             rx.box(
                                 rx.html(embed_code),
-                                class_name="w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
+                                class_name="embed-shell embed-shell-sm w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
                                 min_height="120px",
                             )
                             for embed_code in mixcloud_embed_codes
@@ -186,7 +201,7 @@ def music() -> rx.Component:
                         *[
                             rx.box(
                                 rx.html(embed_code),
-                                class_name="w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
+                                class_name="embed-shell w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
                                 min_height="166px"
                             )
                             for embed_code in podcast_embed_codes

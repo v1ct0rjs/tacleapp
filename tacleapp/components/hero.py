@@ -2,9 +2,9 @@ import reflex as rx
 
 def hero_text() -> rx.Component:
     lines = [
-        "The purest TECHNO throbs, strong and sensitive is incorruptible, brave and unique.",
-        "The purest TECHNO reject the obscure and detect perversion.",
-        "The purest TECHNO don't fake love nor feign freedom.",
+        "The purest TECHNO throbs, it is sensitive, it is incorruptible, brave and unique.",
+        "The purest TECHNO rejects the obscene and detects perversion.",
+        "The purest TECHNO doesn't fake love nor simulate freedom.",
         "TECHNO is you and me."
     ]
     spans = [

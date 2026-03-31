@@ -7,11 +7,11 @@ GTAG = "G-MBP9JLGSZ5"
 def index() -> rx.Component:
     """Main page component with futuristic background effects."""
     return rx.box(
-        #navigation(),
-        rx.box(hero(), as_="section", class_name="section-tight"),
-        rx.box(music(), as_="section", class_name="section-tight"),
-        rx.box(contact(), as_="section", class_name="section-tight"),
-        class_name="futuristic-bg",
+        navigation(),
+        rx.box(hero(), as_="section", id="home", class_name="section-tight"),
+        rx.box(music(), as_="section", id="music", class_name="section-tight"),
+        rx.box(contact(), as_="section", id="contact", class_name="section-tight"),
+        class_name="futuristic-bg nav-offset",
         style={
             "background_color": "#000000",
             "color": "#ffffff",
@@ -167,9 +167,9 @@ def get_custom_css():
     .section, .section-bg, .panel-full { background: transparent !important; }
 
     html { scroll-behavior: smooth; }
-    #home, #music, #contact, #events { scroll-margin-top: 5rem; }
+    #home, #music, #contact, #events, #soundcloud-sessions, #soundcloud-podcasts { scroll-margin-top: 5rem; }
     @media (max-width: 767px) {
-        #home, #music, #contact, #events { scroll-margin-top: 4rem; }
+        #home, #music, #contact, #events, #soundcloud-sessions, #soundcloud-podcasts { scroll-margin-top: 4rem; }
     }
     """
 
