@@ -227,6 +227,7 @@ def get_custom_css():
 
 
 # Create the app
+# Create the app
 app = rx.App(
     _state=State,
     style={
@@ -235,10 +236,10 @@ app = rx.App(
         "color": "#ffffff",
     },
     stylesheets=[
-        "https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap",
         "/styles.css",
     ],
     head_components=[
+        # Google Analytics
         rx.script(src=f"https://www.googletagmanager.com/gtag/js?id={GTAG}"),
         rx.script(
             f"""
