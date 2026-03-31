@@ -3,10 +3,11 @@
 /* ── Variables para la rejilla animada ───────────────────────── */
 :root{
   --grid-size: 128px;
-  --grid-cycle: 34s;
+  --grid-cycle: 28s;
   --brand-red: #ff2a2a;             /* ajusta a tu rojo exacto */
   --grid-c1: rgba(255, 0, 0, 0.12);
   --grid-c2: rgba(255, 255, 255, 0.08);
+  --halo-opacity: 0.24;
 }
 /* Suaviza la animación de color si el navegador lo soporta */
 @property --grid-c1 { syntax: '<color>'; inherits: true; initial-value: rgba(255, 0, 0, 0.12); }
@@ -179,12 +180,14 @@ html { scroll-behavior: smooth; }
   );
   background-size: 100% 100px;
   animation: scan-line 1.2s steps(48, end) infinite;
-  opacity: .9;
+  opacity: 1;
   mix-blend-mode: screen;
 }
 
 .futuristic-bg::after {
   background:
+      radial-gradient(circle at 18% 28%, rgba(255, 0, 0, var(--halo-opacity)) 0%, transparent 42%),
+      radial-gradient(circle at 78% 68%, rgba(255, 255, 255, calc(var(--halo-opacity) * 0.55)) 0%, transparent 40%),
       repeating-linear-gradient(
           0deg,
           rgba(255,255,255,0.03) 0px,
@@ -206,11 +209,66 @@ html { scroll-behavior: smooth; }
           rgba(255,255,255,0.04) 12px,
           rgba(255,255,255,0.04) 13px
       );
+  background-size: 185% 185%, 170% 170%, auto, auto, auto;
+  background-position: -20% -20%, 120% 120%, 0 0, 0 0, 0 0;
   animation:
+      neon-halo-drift 9s ease-in-out infinite,
+      glitch-shift 1.1s steps(18, end) infinite,
+      strobe-electric 1.2s steps(30, end) infinite;
+  opacity: .9;
+  mix-blend-mode: lighten;
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(100px); }
+}
+
+@keyframes glitch-shift {
+  0%   { transform: translate(0, 0); }
+  8%   { transform: translate(-2px, 1px); }
+  16%  { transform: translate(3px, -1px); }
+  24%  { transform: translate(-1px, 0); }
+  32%  { transform: translate(2px, 0.5px); }
+  40%  { transform: translate(0, 0); }
+  55%  { transform: translate(1px, -0.5px); }
+  70%  { transform: translate(-1px, 0.5px); }
+  85%  { transform: translate(2px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes strobe-electric {
+  0%, 100% { filter: none; opacity: .62; }
+  8%, 23%, 37%, 51%, 66%, 81%, 93% {
+      filter: none; opacity: .62;
+  }
+  9%, 24%, 38%, 52%, 67%, 82%, 94% {
+      filter: brightness(2.15) contrast(1.62) saturate(1.24);
+      opacity: 1;
+  }
+}
+
+@keyframes neon-halo-drift {
+  0% {
+    background-position: -20% -20%, 120% 120%, 0 0, 0 0, 0 0;
+  }
+  35% {
+    background-position: 95% 12%, 8% 108%, 0 0, 0 0, 0 0;
+  }
+  70% {
+    background-position: 18% 110%, 105% 14%, 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: -20% -20%, 120% 120%, 0 0, 0 0, 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .futuristic-bg::after {
+    animation:
       glitch-shift 1.1s steps(18, end) infinite,
       strobe-electric 1.6s steps(30, end) infinite;
-  opacity: .55;
-  mix-blend-mode: lighten;
+  }
 }
 
 .futuristic-bg > * {
