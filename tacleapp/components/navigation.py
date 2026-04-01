@@ -66,6 +66,7 @@ def _nav_scrollspy_script() -> rx.Component:
                 });
 
                 let candidate = '';
+                let candidateRatio = 0;
 
                 if (visible.size) {
                   let best = -1;
@@ -75,6 +76,7 @@ def _nav_scrollspy_script() -> rx.Component:
                       candidate = id;
                     }
                   });
+                  candidateRatio = best;
                 } else {
                   // Fallback: section nearest to top when no clear intersection.
                   const navOffset = 96;
@@ -90,9 +92,17 @@ def _nav_scrollspy_script() -> rx.Component:
                   candidate = closestId;
                 }
 
-                scheduleActive(candidate, 120);
+                // Add hysteresis so tiny ratio changes do not cause active-link flicker.
+                if (candidate && currentActive && candidate !== currentActive) {
+                  const activeRatio = visible.get(currentActive) || 0;
+                  if (candidateRatio < activeRatio + 0.08) {
+                    candidate = currentActive;
+                  }
+                }
+
+                scheduleActive(candidate, 180);
               },
-              { root: null, rootMargin: '-35% 0px -55% 0px', threshold: [0.05, 0.2, 0.45, 0.7] }
+              { root: null, rootMargin: '-30% 0px -52% 0px', threshold: [0.12, 0.28, 0.45, 0.65] }
             );
 
             items.forEach(({ section }) => observer.observe(section));
@@ -129,8 +139,7 @@ def navigation() -> rx.Component:
     links = [
         ("Home", "#home"),
         ("Music", "#music"),
-        ("Session", "#soundcloud-sessions"),
-        ("Mixcloud", "#mixcloud-mixes"),
+        ("Sessions", "#soundcloud-sessions"),
         ("Podcast", "#soundcloud-podcasts"),
         ("Contact", "#contact"),
     ]

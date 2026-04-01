@@ -232,38 +232,39 @@ html { scroll-behavior: smooth; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .futuristic-bg::after {
-    animation: none;
+  html {
+    scroll-behavior: auto;
+  }
+
+  .futuristic-bg,
+  .futuristic-bg::before,
+  .futuristic-bg::after,
+  .embed-shell::before,
+  .stanza,
+  .matrix-bg,
+  .scan-lines,
+  .glitch-bg,
+  .particle,
+  .digital-noise,
+  .connection-line,
+  .text-glitch,
+  .pulse-red,
+  .music-wave {
+    animation: none !important;
+  }
+
+  /* Keep content visible when intro animation is disabled. */
+  .stanza {
+    opacity: 1;
+    transform: none;
+  }
+
+  .top-nav-link,
+  .left-rail-link,
+  .back-to-top-fab {
+    transition: none;
   }
 }
-
-.futuristic-bg > * {
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes grid-jitter {
-  0%   { background-position: 0 0, 0 0; }
-  20%  { background-position: -1px 0, 0 -1px; }
-  40%  { background-position: 0 0, 0 0; }
-  60%  { background-position: 1px 0, 0 1px; }
-  80%  { background-position: 0 0, 0 0; }
-  100% { background-position: -1px -1px, 1px 1px; }
-}
-
-/* Glitch de texto (opcional para títulos) */
-@keyframes text-glitch { 0%,100% { text-shadow: 0 0 0 transparent;}
-  10%{ text-shadow:-2px 0 0 rgba(255,255,255,0.3), 2px 0 0 rgba(255,255,255,0.1);}
-  20%{ text-shadow: 2px 0 0 rgba(255,255,255,0.3),-2px 0 0 rgba(255,255,255,0.1);} 30%{ text-shadow:0 0 0 transparent;} }
-.text-glitch { animation: text-glitch 3s infinite; }
-
-/* Optimiza */
-.matrix-bg, .scan-lines, .glitch-bg, .digital-noise, .particles, .connection-lines { will-change: transform, opacity; }
-
-/* Espaciado vertical ultra-compacto para secciones */
-.section-tight { padding-block: 0.5rem; }
-@media (min-width:640px){ .section-tight { padding-block: 0.75rem; } }
-@media (min-width:1024px){ .section-tight { padding-block: 1rem; } }
 
 /* ===== LEFT GHOST CARD NAV (elegante, fija, acorde a la web) ===== */
 :root{
@@ -564,3 +565,14 @@ html { scroll-behavior: smooth; }
   opacity: 0.75;
 }
 
+@media (max-width: 767px) {
+  .embed-shell::before {
+    background: linear-gradient(100deg, transparent 26%, rgba(255, 255, 255, 0.05) 50%, transparent 74%);
+    animation-duration: 4.4s;
+    opacity: 0.55;
+  }
+
+  .embed-shell-sm::before {
+    opacity: 0.45;
+  }
+}
