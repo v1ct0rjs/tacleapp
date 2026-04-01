@@ -15,10 +15,10 @@ def _contact_form_html() -> rx.Component:
                style="background:#1f2937;border:1px solid #374151;color:#fff;border-radius:0.375rem;padding:0.5rem 0.75rem;width:100%;outline:none;font-family:inherit;font-size:0.95rem;"
                onfocus="this.style.borderColor='#ef4444'" onblur="this.style.borderColor='#374151'" />
       </div>
-      <input name="subject" placeholder="Subject"
+      <input name="subject" placeholder="Event / Booking Subject"
              style="background:#1f2937;border:1px solid #374151;color:#fff;border-radius:0.375rem;padding:0.5rem 0.75rem;width:100%;outline:none;font-family:inherit;font-size:0.95rem;"
              onfocus="this.style.borderColor='#ef4444'" onblur="this.style.borderColor='#374151'" />
-      <textarea name="message" placeholder="Your Message" rows="5" required
+      <textarea name="message" placeholder="Tell me about your event (date, city, venue, set time, budget)..." rows="5" required
                 style="background:#1f2937;border:1px solid #374151;color:#fff;border-radius:0.375rem;padding:0.5rem 0.75rem;width:100%;outline:none;resize:none;font-family:inherit;font-size:0.95rem;"
                 onfocus="this.style.borderColor='#ef4444'" onblur="this.style.borderColor='#374151'"></textarea>
       <button id="emailjs-send-btn" type="button"
@@ -28,7 +28,7 @@ def _contact_form_html() -> rx.Component:
       </button>
       <div id="emailjs-msg-ok"
            style="display:none;margin-top:0.5rem;padding:0.75rem;border-radius:0.375rem;background:rgba(6,78,59,0.5);border:1px solid #166534;color:#86efac;font-size:0.875rem;">
-        Thank you for your message! We'll get back to you soon.
+        Thank you for your booking inquiry. We'll get back to you shortly.
       </div>
       <div id="emailjs-msg-err"
            style="display:none;margin-top:0.5rem;padding:0.75rem;border-radius:0.375rem;background:rgba(127,29,29,0.5);border:1px solid #991b1b;color:#fca5a5;font-size:0.875rem;">
@@ -128,13 +128,13 @@ def contact() -> rx.Component:
         rx.container(
             section_header("Get In ", "Touch"),
             rx.text(
-                "Ready to book a performance or collaborate? Let's create something amazing together.",
+                "Book 10TACLE for clubs, festivals, private events and collaborations in electronic music.",
                 class_name="text-gray-400 max-w-2xl text-center -mt-12 mb-16 mx-auto"
             ),
             rx.grid(
                 # ── Formulario HTML puro autocontenido ──
                 rx.box(
-                    rx.heading("Send a Message", size="6", weight="bold",
+                    rx.heading("Booking Inquiry", size="6", weight="bold",
                                class_name="font-orbitron text-white mb-6"),
                     _contact_form_html(),
                     class_name="bg-gray-900/50 rounded-lg p-8 border border-gray-800",
@@ -142,7 +142,7 @@ def contact() -> rx.Component:
                 # ── Info + Redes sociales ──
                 rx.flex(
                     rx.box(
-                        rx.heading("Contact Info", size="5", weight="bold",
+                        rx.heading("Booking Contact", size="5", weight="bold",
                                    class_name="font-orbitron text-white mb-4"),
                         rx.flex(
                             rx.flex(
@@ -160,7 +160,7 @@ def contact() -> rx.Component:
                         ),
                     ),
                     rx.box(
-                        rx.heading("Follow Me", size="5", weight="bold",
+                        rx.heading("Social Profiles", size="5", weight="bold",
                                    class_name="font-orbitron text-white mb-4"),
                         rx.flex(
                             *[

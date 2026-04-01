@@ -92,7 +92,7 @@ def music() -> rx.Component:
                     class_name="font-orbitron text-white mb-3 text-center sm:text-left",
                 ),
                 rx.text(
-                    "Last songs on Spotify.",
+                    "Latest techno releases on Spotify.",
                     class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10"
                 ),
                 rx.cond(
@@ -139,7 +139,7 @@ def music() -> rx.Component:
                         class_name="font-orbitron text-white mt-12 mb-3 text-center sm:text-left",
                     ),
                     rx.text(
-                        "Latest tracks and selected playlists on SoundCloud.",
+                        "Latest SoundCloud tracks, edits and playlists.",
                         class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10",
                     ),
                     rx.cond(
@@ -189,7 +189,7 @@ def music() -> rx.Component:
                 rx.heading("Sessions", size="7", weight="bold",
                            class_name="font-orbitron text-white mb-3 text-center sm:text-left"),
                 rx.text(
-                    "Latest DJ sets and sessions on SoundCloud.",
+                    "Latest techno DJ sets and live sessions on SoundCloud.",
                     class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10"
                 ),
                 rx.cond(
@@ -225,7 +225,7 @@ def music() -> rx.Component:
                     class_name="font-orbitron text-white mb-3 text-center sm:text-left",
                 ),
                 rx.text(
-                    "DJ mixes on Mixcloud.",
+                    "Long-form techno DJ mixes on Mixcloud.",
                     class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10",
                 ),
                 rx.cond(
@@ -274,7 +274,7 @@ def music() -> rx.Component:
                 rx.heading("Podcast", size="7", weight="bold",
                            class_name="font-orbitron text-white mb-3 text-center sm:text-left"),
                 rx.text(
-                    "Podcast episodes on SoundCloud.",
+                    "Techno podcast episodes and radio-style sessions on SoundCloud.",
                     class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10"
                 ),
                 rx.cond(

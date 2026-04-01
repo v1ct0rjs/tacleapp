@@ -1,8 +1,41 @@
+import json
+import os
+
 import reflex as rx
 from .state import State
 from .components import navigation, hero, music, events, contact
 
 GTAG = "G-MBP9JLGSZ5"
+SITE_URL = os.getenv("SITE_URL", "https://10tacle.org").rstrip("/")
+
+
+def _structured_data() -> str:
+    website = {
+        "@type": "WebSite",
+        "name": "10TACLE",
+    }
+    music_group = {
+        "@type": "MusicGroup",
+        "name": "10TACLE",
+        "genre": ["Techno", "Electronic"],
+        "sameAs": [
+            "https://open.spotify.com/intl-es/artist/4ycl0vQK5aynXLJeRFpanC",
+            "https://soundcloud.com/10tacle",
+            "https://www.mixcloud.com/victorchopsuey/",
+            "https://www.beatport.com/es/artist/10tacle/1121502",
+            "https://www.twitch.tv/v1ct0rdev",
+        ],
+    }
+
+    if SITE_URL:
+        website["url"] = SITE_URL
+        music_group["url"] = SITE_URL
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [website, music_group],
+    }
+    return json.dumps(schema, separators=(",", ":"))
 
 def index() -> rx.Component:
     """Main page component with futuristic background effects."""
@@ -199,12 +232,13 @@ app = rx.App(
             gtag('config', '{GTAG}');
             """
         ),
+        rx.script(_structured_data(), type_="application/ld+json"),
     ],
 )
 
 # Add the main page
 app.add_page(
     index,
-    title="10tacle - Electronic Music Producer & DJ",
-    description="Official website of 10tacle - Electronic music producer, DJ and radio host",
+    title="10TACLE | Electronic Music Producer & DJ",
+    description="Book 10TACLE for clubs, festivals and private events. Techno DJ sets, original electronic music releases, remixes and live sessions.",
 )
