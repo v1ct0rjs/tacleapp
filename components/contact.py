@@ -1,3 +1,4 @@
+from datetime import datetime
 import reflex as rx
 from ..state import State
 from .utils import section_header
@@ -5,6 +6,7 @@ from .utils import section_header
 
 def contact() -> rx.Component:
     """Contact section component."""
+    current_year = datetime.now().year
 
     social_links = [
         {"icon": "instagram", "href": "https://www.instagram.com/dj_10tacle/", "label": "Instagram"},
@@ -137,7 +139,7 @@ def contact() -> rx.Component:
             ),
 
             rx.box(
-                rx.text("© 2025 10TACLE. All rights reserved.", size="2", class_name="text-gray-500 text-center"),
+                rx.text(f"© {current_year} 10TACLE. All rights reserved.", size="2", class_name="text-gray-500 text-center"),
                 class_name="mt-20 pt-8 border-t border-gray-800"
             ),
 
