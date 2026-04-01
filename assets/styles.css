@@ -544,6 +544,9 @@ html { scroll-behavior: smooth; }
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg, rgba(22, 22, 22, 0.85), rgba(10, 10, 10, 0.88));
+  content-visibility: auto;
+  contain-intrinsic-size: 360px;
+  contain: layout paint;
 }
 
 .embed-shell::before {
@@ -566,13 +569,25 @@ html { scroll-behavior: smooth; }
 }
 
 @media (max-width: 767px) {
+  .futuristic-bg {
+    animation: grid-slow-spike-color var(--grid-cycle) linear infinite;
+  }
+
+  .futuristic-bg::before {
+    display: none;
+  }
+
   .embed-shell::before {
-    background: linear-gradient(100deg, transparent 26%, rgba(255, 255, 255, 0.05) 50%, transparent 74%);
-    animation-duration: 4.4s;
-    opacity: 0.55;
+    display: none;
+  }
+
+  .embed-shell,
+  .embed-shell-sm {
+    background: rgba(10, 10, 10, 0.9);
+    contain-intrinsic-size: 220px;
   }
 
   .embed-shell-sm::before {
-    opacity: 0.45;
+    opacity: 0;
   }
 }

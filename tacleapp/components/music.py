@@ -56,8 +56,8 @@ def music() -> rx.Component:
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2007493087&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
     ]
     soundcloud_embed_codes = [
-        _set_iframe_loading(_set_soundcloud_color(code), "eager" if i == 0 else "lazy")
-        for i, code in enumerate(soundcloud_embed_codes_raw)
+        _set_iframe_loading(_set_soundcloud_color(code), "lazy")
+        for code in soundcloud_embed_codes_raw
     ]
 
     podcast_embed_codes_raw = [
@@ -66,8 +66,8 @@ def music() -> rx.Component:
         """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1470612097&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
     ]
     podcast_embed_codes = [
-        _set_iframe_loading(_set_soundcloud_color(code), "eager" if i == 0 else "lazy")
-        for i, code in enumerate(podcast_embed_codes_raw)
+        _set_iframe_loading(_set_soundcloud_color(code), "lazy")
+        for code in podcast_embed_codes_raw
     ]
 
     mixcloud_embed_codes_raw = [
