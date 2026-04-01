@@ -2,6 +2,10 @@
 set -euo pipefail
 
 ZIP_PATH="${1:-frontend.zip}"
+SITE_URL="${SITE_URL:-https://10tacle.org}"
+SITE_HOST="${SITE_URL#https://}"
+SITE_HOST="${SITE_HOST#http://}"
+SITE_HOST="${SITE_HOST%/}"
 
 if [[ ! -f "$ZIP_PATH" ]]; then
   echo "No encuentro $ZIP_PATH. Uso: $0 /ruta/a/frontend.zip"
@@ -15,6 +19,14 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 rm -rf "$SCRIPT_DIR/reflex-frontend"
 mkdir -p "$SCRIPT_DIR/reflex-frontend"
 unzip -q "$ZIP_PATH" -d "$SCRIPT_DIR/reflex-frontend"
+
+# Fix sitemap URLs exported with localhost in some Reflex builds.
+SITEMAP_PATH="$SCRIPT_DIR/reflex-frontend/sitemap.xml"
+if [[ -f "$SITEMAP_PATH" ]]; then
+  sed -i "s#http://localhost:3000/#https://${SITE_HOST}/#g" "$SITEMAP_PATH"
+  sed -i "s#http://127.0.0.1:3000/#https://${SITE_HOST}/#g" "$SITEMAP_PATH"
+  echo "✅ sitemap.xml corregido para ${SITE_HOST}"
+fi
 
 # Para y borra el contenedor/stack anterior
 docker compose -f "$ROOT_DIR/docker-compose.yml" down --remove-orphans
