@@ -31,6 +31,9 @@ def music() -> rx.Component:
     ]
     spotify_playlist = [_set_iframe_loading(code, "lazy") for code in spotify_playlist_raw]
 
+    beatport_embed_raw = """<iframe src="https://embed.beatport.com/?id=6917812&type=release" width="100%" height="660" frameborder="0" scrolling="no" style="max-width:600px;"></iframe>"""
+    beatport_embed = _set_iframe_loading(beatport_embed_raw, "lazy")
+
     latest_soundcloud_embed_codes_raw = [
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1512589402&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1581332740&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
@@ -43,6 +46,7 @@ def music() -> rx.Component:
     ]
 
     soundcloud_embed_codes_raw = [
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2298523730&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2239207454&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1972991863&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2072434876&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
@@ -54,6 +58,7 @@ def music() -> rx.Component:
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2261910947&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1916937122&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
         """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2007493087&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+
     ]
     soundcloud_embed_codes = [
         _set_iframe_loading(_set_soundcloud_color(code), "lazy")
@@ -85,6 +90,33 @@ def music() -> rx.Component:
             rx.box(
                 rx.heading("Latest Tracks", size="7", weight="bold",
                            class_name="font-orbitron text-white mb-8 text-center sm:text-left"),
+                rx.box(
+                    rx.heading(
+                        "My last release included in T1 Music Sampler 1 Compilation",
+                        size="5",
+                        weight="bold",
+                        class_name="font-orbitron text-white mb-3 text-center sm:text-left",
+                    ),
+                    rx.text(
+                        "All tracks from the album are available on Beatport. Label: T1 Music from Amsterdam, Netherlands. ",
+                        rx.text(
+                            "Release date: June 22, 2026.",
+                            as_="span",
+                            weight="bold",
+                            class_name="font-orbitron",
+                        ),
+                        class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-8",
+                    ),
+                    rx.center(
+                        rx.box(
+                            rx.html(beatport_embed),
+                            class_name="embed-shell w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
+                            min_height="660px",
+                        ),
+                        class_name="w-full",
+                    ),
+                    class_name="mb-12",
+                ),
                 rx.heading(
                     "Spotify",
                     size="5",
@@ -321,3 +353,5 @@ def music() -> rx.Component:
         id="music",
         class_name="py-20 bg-black",
     )
+
+
