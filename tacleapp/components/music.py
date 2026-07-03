@@ -35,10 +35,11 @@ def music() -> rx.Component:
     beatport_embed = _set_iframe_loading(beatport_embed_raw, "lazy")
 
     latest_soundcloud_embed_codes_raw = [
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1512589402&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1581332740&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1493480635&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1436879059&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2330820092&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1512589402&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1581332740&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1493480635&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2345251616&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
     ]
     latest_soundcloud_embed_codes = [
         _set_iframe_loading(_set_soundcloud_color(code), "eager" if i == 0 else "lazy")
@@ -46,19 +47,16 @@ def music() -> rx.Component:
     ]
 
     soundcloud_embed_codes_raw = [
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2298523730&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2239207454&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1972991863&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2072434876&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2090535147&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2261911907&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2261909804&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2261914499&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2261913839&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2261910947&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1916937122&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2007493087&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
-
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2335150115&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2298523730&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2239207454&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1972991863&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2072434876&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2090535147&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2261909804&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2261910947&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1916937122&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
+        """<iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2007493087&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>""",
     ]
     soundcloud_embed_codes = [
         _set_iframe_loading(_set_soundcloud_color(code), "lazy")
@@ -76,6 +74,7 @@ def music() -> rx.Component:
     ]
 
     mixcloud_embed_codes_raw = [
+        """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fthe-vault-vol3-live-recording%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
         """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fdivine-techno-mix-2%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
         """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fdivine-techno-mix%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
         """<iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fvictorchopsuey%2Fanother-techno-monday-in-electro-space%2F" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" loading="lazy"></iframe>""",
@@ -117,52 +116,7 @@ def music() -> rx.Component:
                     ),
                     class_name="mb-12",
                 ),
-                rx.heading(
-                    "Spotify",
-                    size="5",
-                    weight="bold",
-                    class_name="font-orbitron text-white mb-3 text-center sm:text-left",
-                ),
-                rx.text(
-                    "Latest techno releases on Spotify.",
-                    class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10"
-                ),
-                rx.cond(
-                    len(spotify_playlist) > 0,
-                    rx.vstack(
-                        *[
-                            rx.box(
-                                rx.html(embed_code),
-                                class_name="embed-shell w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
-                                min_height="352px"
-                            )
-                            for embed_code in spotify_playlist
-                        ],
-                        spacing="6",
-                        align="center",
-                        class_name="w-full"
-                    ),
-                    rx.center(
-                        rx.text("No hay tracks para mostrar en este momento.",
-                                class_name="text-gray-500"),
-                        class_name="h-32"
-                    )
-                ),
-
-                rx.flex(
-                    rx.link(
-                        rx.button(
-                            "Spotify",
-                            rx.icon("arrow-right", size=16, class_name="ml-2"),
-                            size="3", variant="outline",
-                            class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider"
-                        ),
-                        href=State.spotify_playlist_full_url,
-                        is_external=True,
-                    ),
-                    justify="center",
-                    class_name="w-full"
-                ),
+                # Move SoundCloud block before Spotify
                 rx.box(
                     rx.heading(
                         "SoundCloud",
@@ -212,6 +166,53 @@ def music() -> rx.Component:
                         justify="center",
                         class_name="w-full",
                     ),
+                ),
+
+                rx.heading(
+                    "Spotify",
+                    size="5",
+                    weight="bold",
+                    class_name="font-orbitron text-white mb-3 text-center sm:text-left",
+                ),
+                rx.text(
+                    "Latest techno releases on Spotify.",
+                    class_name="text-gray-400 max-w-2xl text-center sm:text-left mb-10"
+                ),
+                rx.cond(
+                    len(spotify_playlist) > 0,
+                    rx.vstack(
+                        *[
+                            rx.box(
+                                rx.html(embed_code),
+                                class_name="embed-shell w-full max-w-3xl mx-auto my-4 rounded-lg border border-gray-800",
+                                min_height="352px"
+                            )
+                            for embed_code in spotify_playlist
+                        ],
+                        spacing="6",
+                        align="center",
+                        class_name="w-full"
+                    ),
+                    rx.center(
+                        rx.text("No hay tracks para mostrar en este momento.",
+                                class_name="text-gray-500"),
+                        class_name="h-32"
+                    )
+                ),
+
+                rx.flex(
+                    rx.link(
+                        rx.button(
+                            "Spotify",
+                            rx.icon("arrow-right", size=16, class_name="ml-2"),
+                            size="3", variant="outline",
+                            class_name="border-gray-500 text-gray-300 hover:bg-white hover:text-black font-bold mt-12 tracking-wider"
+                        ),
+                        href=State.spotify_playlist_full_url,
+                        is_external=True,
+                    ),
+                    justify="center",
+                    class_name="w-full"
                 ),
                 id="spotify-tracks",
                 class_name="mb-20 pt-10"
